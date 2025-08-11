@@ -1,0 +1,50 @@
+// Types for the Memoria y Niebla character creator
+
+export const ATTRIBUTE_NAMES = ['Vigor', 'Agilidad', 'Ingenio', 'Intuición'] as const;
+export const PACKAGE_NAMES = ['Aguante', 'Espíritu', 'Recursos'] as const;
+export const VIRTUE_TYPES = ['Artefacto', 'Magia', 'Rasgo', 'Talento', 'Libre'] as const;
+
+export type AttributeName = (typeof ATTRIBUTE_NAMES)[number];
+export type PackageName = (typeof PACKAGE_NAMES)[number];
+export type VirtueType = (typeof VIRTUE_TYPES)[number];
+
+export type AttributeSetKey = 'A' | 'B' | 'C';
+export type PackageSetKey = 'A' | 'B' | 'C';
+
+export interface Virtue {
+  id: string;
+  type: VirtueType;
+  text: string;
+}
+
+export interface Complication {
+  text: string;
+}
+
+export interface Character {
+  id: string;
+  name: string;
+  attributes: Record<AttributeName, number | null>; // modifiers
+  attributeSet: AttributeSetKey;
+  packs: Record<PackageName, number | null>; // maximum/base values
+  packageSet: PackageSetKey;
+  current: Record<'Aguante' | 'Espíritu' | 'Recursos', number>; // current pool values
+  virtues: Virtue[]; // exactly 3
+  complication: Complication;
+  notes: string;
+}
+
+export type CharacterAction =
+  | { type: 'setName'; value: string }
+  | { type: 'setAttributeSet'; value: AttributeSetKey }
+  | { type: 'setAttribute'; attribute: AttributeName; value: number | null }
+  | { type: 'setPackageSet'; value: PackageSetKey }
+  | { type: 'setPack'; pack: PackageName; value: number | null }
+  | { type: 'setCurrent'; pack: PackageName; value: number }
+  | { type: 'setVirtue'; id: string; patch: Partial<Virtue> }
+  | { type: 'addVirtue' }
+  | { type: 'removeVirtue'; id: string }
+  | { type: 'setComplication'; value: string }
+  | { type: 'setNotes'; value: string }
+  | { type: 'load'; value: Character }
+  | { type: 'reset' };

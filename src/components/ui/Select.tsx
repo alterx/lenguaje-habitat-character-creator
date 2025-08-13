@@ -31,12 +31,17 @@ export function Select({
     'px-3 border rounded-xl focus:outline-none focus:ring-2 transition-all';
 
   const variantClasses = {
-    default: 'py-2 bg-forest-800/60 text-parchment-100 border-forest-600 hover:bg-forest-700/80 focus:ring-forest-500',
-    compact: 'py-1.5 text-xs bg-forest-800 text-parchment-100 border-forest-600 hover:bg-forest-700 focus:ring-forest-500',
-    primary: 'py-2 bg-forest-700 text-parchment-100 border-forest-500 hover:bg-forest-600 focus:ring-forest-500 shadow-lg hover:shadow-xl',
+    default:
+      'py-2 bg-forest-800/60 text-parchment-100 border-forest-600 hover:bg-forest-700/80 focus:ring-forest-500',
+    compact:
+      'py-1.5 text-xs bg-forest-800 text-parchment-100 border-forest-600 hover:bg-forest-700 focus:ring-forest-500',
+    primary:
+      'py-2 bg-forest-700 text-parchment-100 border-forest-500 hover:bg-forest-600 focus:ring-forest-500 shadow-lg hover:shadow-xl',
     form: 'py-2 bg-amber-50 text-green-900 border-parchment-600 hover:bg-amber-100 focus:ring-amber-500',
-    black: 'py-2 bg-black text-white border-gray-700 hover:bg-gray-800 focus:ring-gray-500 shadow-lg hover:shadow-xl',
-    white: 'py-2 bg-white text-black border-gray-300 hover:bg-gray-100 focus:ring-gray-400 shadow-lg hover:shadow-xl',
+    black:
+      'py-2 bg-black text-white border-gray-700 hover:bg-gray-800 focus:ring-gray-500 shadow-lg hover:shadow-xl',
+    white:
+      'py-2 bg-white text-black border-gray-300 hover:bg-gray-100 focus:ring-gray-400 shadow-lg hover:shadow-xl',
   };
 
   const selectClasses = `${baseClasses} ${variantClasses[variant]} ${className}`;

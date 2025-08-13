@@ -5,7 +5,13 @@ interface ButtonProps {
   icon?: React.ReactNode;
   disabled?: boolean;
   label?: string;
-  variant?: 'primary' | 'secondary' | 'destructive' | 'icon' | 'black' | 'white';
+  variant?:
+    | 'primary'
+    | 'secondary'
+    | 'destructive'
+    | 'icon'
+    | 'black'
+    | 'white';
   size?: 'small' | 'medium' | 'large';
   className?: string;
 }

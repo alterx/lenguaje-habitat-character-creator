@@ -1,4 +1,4 @@
-# Memoria y Niebla — Creador de Personajes (v3)
+# Lenguaje Hábitat — Creador de Personajes (v3)
 
 Includes: Vite + React + TypeScript + Tailwind + jsPDF + html2canvas.
 

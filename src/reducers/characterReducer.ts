@@ -5,7 +5,10 @@ export function characterReducer(state: Character, action: CharacterAction): Cha
   switch (action.type) {
     case 'setName':
       return { ...state, name: action.value };
-    
+
+    case 'setStatus':
+      return { ...state, status: action.value };
+
     case 'setAttributeSet': {
       const attributes = ATTRIBUTE_NAMES.reduce(
         (acc, a) => ({ ...acc, [a]: null }),

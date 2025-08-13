@@ -59,6 +59,7 @@ export interface Character {
 
 export type CharacterAction =
   | { type: 'setName'; value: string }
+  | { type: 'setStatus'; value: Status }
   | { type: 'setAttributeSet'; value: AttributeSetKey }
   | { type: 'setAttribute'; attribute: AttributeName; value: number | null }
   | { type: 'setPackageSet'; value: PackageSetKey }

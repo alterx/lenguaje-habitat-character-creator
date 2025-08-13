@@ -421,7 +421,10 @@ export default function App() {
                     onDownloadJSON={onDownloadJSON}
                     onShareLink={onShareLink}
                     isPlaying={isPlaying}
-                    onStartPlaying={() => setIsPlaying(true)}
+                    onStartPlaying={() => {
+                      setIsPlaying(true);
+                      dispatch({ type: 'setStatus', value: 'ready' });
+                    }}
                     onStopPlaying={() => setIsPlaying(false)}
                   />
                 </div>

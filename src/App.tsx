@@ -330,7 +330,7 @@ export default function App() {
             // Preview mode UI
             <div className="max-w-4xl mx-auto space-y-6">
               <div className="bg-forest-700 rounded-xl p-4 border-2 border-forest-600">
-                <h2 className="text-2xl font-bold text-parchment-100 mb-2">
+                <h2 className="text-2xl font-bold text-parchment-100 mb-2 font-serif">
                   Vista previa del personaje
                 </h2>
                 <p className="text-parchment-200 mb-4">

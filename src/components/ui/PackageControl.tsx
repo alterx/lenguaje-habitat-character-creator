@@ -1,4 +1,4 @@
-import type { PackageName } from '../../types/Character';
+import { PACKAGE_LABELS, type PackageName } from '../../types/Character';
 import {
   ArrowPathIcon,
   MinusCircleIcon,
@@ -35,7 +35,7 @@ export function PackageControl({
         icon={<MinusCircleIcon className="h-5 w-5" />}
       />
       <div className="text-sm text-center">
-        <div className="font-bold text-forest-800">{name}</div>
+        <div className="font-bold text-forest-800">{PACKAGE_LABELS[name]}</div>
         <div className="text-sm text-forest-700">
           {`${current} ${name !== 'resources' ? '/ ' + (max ?? '—') : ''}`}
         </div>

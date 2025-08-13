@@ -51,7 +51,7 @@ export function CharacterStepper({
         const isAccessible = stepNumber <= maxAccessibleStep;
         const isCompleted = stepNumber < currentStep;
         const isCurrent = stepNumber === currentStep;
-        
+
         return (
           <button
             key={i}
@@ -66,7 +66,9 @@ export function CharacterStepper({
             }`}
             onClick={() => isAccessible && onStepClick(stepNumber)}
             disabled={!isAccessible}
-            aria-label={`${isAccessible ? 'Ir al' : 'Paso no disponible'} paso ${stepNumber}`}
+            aria-label={`${
+              isAccessible ? 'Ir al' : 'Paso no disponible'
+            } paso ${stepNumber}`}
           />
         );
       })}

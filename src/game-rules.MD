@@ -72,10 +72,10 @@ Cada jugadora elige una de las siguientes filas para su paquete de aventura:
 
 Cada protagonista negocia de forma libre con la guía cuáles serán sus cuatro características: tres positivas (**virtudes**) y una negativa (**complicación**).
 
-Una **característica** es una palabra o frase que declara algo excepcional y sobresaliente del personaje. Funcionan como permisos narrativos. La guía decide si acepta, modifica o rechaza cada característica.
+Una **característica** es una palabra o frase que declara algo excepcional y sobresaliente del protagonista. Funcionan como permisos narrativos. La guía decide si acepta, modifica o rechaza cada característica.
 
 - **Virtudes:** Pueden ser artefactos únicos, rasgos distintivos, talentos prodigiosos o alguna forma de magia.
-- **Complicación:** Puede ser una dificultad con la que el personaje debe lidiar o un vicio de personalidad.
+- **Complicación:** Puede ser una dificultad con la que el protagonista debe lidiar o un vicio de personalidad.
 
 ### Dificultades
 
@@ -107,7 +107,7 @@ Toda acción tiene una consecuencia. Según el resultado, la guía puede narrar 
 **Desarrollo:**
 
 - Cada participante actúa por turnos.
-- Durante su turno, un personaje puede realizar un **movimiento** y una **acción**.
+- Durante su turno, un protagonista puede realizar un **movimiento** y una **acción**.
 - Algunos adversarios pueden tener más de un turno.
 - Cada ronda consiste en una **fase de acción** (protagonistas) seguida de una **fase de reacción** (adversarios).
 - Las distancias son narrativas: inmediato, cerca, lejos o muy lejos.

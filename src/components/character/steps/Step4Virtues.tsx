@@ -69,9 +69,9 @@ export function Step4Virtues({
                       patch: { type: value as VirtueType },
                     })
                   }
-                  options={VIRTUE_TYPES.map(type => ({
+                  options={VIRTUE_TYPES.map((type) => ({
                     value: type,
-                    label: VIRTUE_TYPE_LABELS[type]
+                    label: VIRTUE_TYPE_LABELS[type],
                   }))}
                   className="w-full"
                 />

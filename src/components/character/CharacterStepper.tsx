@@ -1,7 +1,3 @@
-// Character stepper navigation
-
-import React from 'react';
-
 interface CharacterStepperProps {
   currentStep: number;
   totalSteps: number;

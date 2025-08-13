@@ -1,12 +1,10 @@
-// Quick rules reference component
-
-import React from 'react';
-
 export function QuickRules() {
   return (
-    <section className="bg-amber-100 rounded-2xl border border-amber-300 p-4">
-      <h3 className="font-semibold mb-2 text-green-900">Reglas rápidas</h3>
-      <ul className="text-sm space-y-2 text-green-800">
+    <section className="bg-parchment-300 bg-paper-texture backdrop-blur-sm rounded-2xl border border-parchment-600 p-4 shadow-lg">
+      <h3 className="font-semibold mb-2 text-forest-800 font-serif">
+        Reglas rápidas
+      </h3>
+      <ul className="text-sm space-y-2 text-forest-800">
         <li>
           Si hay obstáculos, tirá <b>d20 + atributo</b> contra una dificultad
           apropiada para la ficción.

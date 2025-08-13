@@ -1,6 +1,3 @@
-// Main character creation form component
-
-import React from 'react';
 import { CharacterStepper } from './CharacterStepper';
 import { Step1BasicInfo } from './steps/Step1BasicInfo';
 import { Step2Attributes } from './steps/Step2Attributes';

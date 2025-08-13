@@ -1,8 +1,4 @@
-// Main sidebar component that combines all sidebar elements
-
-import React from 'react';
 import { DiceRoller } from './DiceRoller';
-import { DiceLog } from './DiceLog';
 import { AdventurePoints } from './AdventurePoints';
 import { QuickRules } from './QuickRules';
 import type { Character, CharacterAction } from '../../types/Character';

@@ -1,11 +1,10 @@
-// Main App component - refactored and modular
-
 import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import { Header } from './components/layout/Header';
 import { WelcomeScreen } from './components/character/WelcomeScreen';
 import { CharacterForm } from './components/character/CharacterForm';
 import { Sidebar } from './components/sidebar/Sidebar';
-import { Toast, Modal } from './components/ui';
+import { Modal } from './components/ui/Modal';
+import { Toast } from './components/ui/Toast';
 import { characterReducer } from './reducers/characterReducer';
 import { useAutoSave } from './hooks/useAutoSave';
 import { useDiceLog } from './hooks/useDiceLog';
@@ -16,6 +15,7 @@ import {
 } from './utils/localStorage';
 import { download, encodeShare, decodeShare } from './utils/gameUtils';
 import type { Character } from './types/Character';
+import { TrashIcon } from '@heroicons/react/24/solid';
 
 export default function App() {
   // Multi-character state
@@ -124,7 +124,16 @@ export default function App() {
     const hash = location.hash.replace(/^#/, '');
     if (hash) {
       const loaded = decodeShare(hash);
-      if (loaded) dispatch({ type: 'load', value: loaded });
+      if (loaded) {
+        // Just load the character data for preview, don't add to characters list
+        dispatch({ type: 'load', value: loaded });
+        // Clear the hash from URL
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname + window.location.search
+        );
+      }
     }
   }, []);
 
@@ -152,7 +161,26 @@ export default function App() {
     reader.onload = () => {
       try {
         const data = JSON.parse(String(reader.result));
-        dispatch({ type: 'load', value: data });
+
+        // Ensure the loaded character has a unique ID
+        const characterWithId = { ...data, id: data.id || crypto.randomUUID() };
+
+        // Add to characters list if not already present
+        setCharacters((chars) => {
+          const exists = chars.some((c) => c.id === characterWithId.id);
+          if (!exists) {
+            return [...chars, characterWithId];
+          }
+          return chars.map((c) =>
+            c.id === characterWithId.id ? characterWithId : c
+          );
+        });
+
+        // Select this character
+        setSelectedId(characterWithId.id);
+
+        // Reset to step 1 for editing
+        setStep(1);
       } catch {
         showModal('Archivo inválido', {
           title: 'Error al cargar archivo',
@@ -196,9 +224,9 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900">
+    <div className="min-h-screen bg-forest-950 bg-forest-texture text-parchment-50">
       {/* Print styles */}
-      <style>{`@media print { #app-controls, #helper-panel { display: none !important; } #sheet { box-shadow: none !important; border: none !important; } body { background: white !important; } }`}</style>
+      <style>{`@media print { #app-controls, #helper-panel { display: none !important; } #sheet { box-shadow: none !important; border: none !important; background: white !important; color: black !important; } body { background: white !important; } }`}</style>
 
       <Header
         characters={characters}
@@ -229,18 +257,18 @@ export default function App() {
             />
           ) : (
             <>
-              <h1 className="text-4xl text-green-700 pb-8 font-bold">
-                Creador de Personajes
-              </h1>
-
               {selectedChar && (
-                <div className="gap-4 flex justify-between pb-8">
+                <div className="gap-4 flex pb-8">
+                  <h1 className="text-4xl text-parchment-100 font-bold font-serif tracking-wide display-inline">
+                    {selectedChar?.name ? selectedChar.name : 'Nuevo Personaje'}
+                  </h1>
+
                   {selectedId && (
                     <button
-                      className="px-3 py-1.5 rounded-xl bg-amber-200 hover:bg-amber-300 text-sm text-green-900"
+                      className="justify-center"
                       onClick={() => deleteCharacter(selectedId)}
                     >
-                      Eliminar
+                      <TrashIcon className="h-5 w-5" />
                     </button>
                   )}
                 </div>
@@ -287,8 +315,21 @@ export default function App() {
         onConfirm={modal.onConfirm}
       />
 
-      <footer className="max-w-5xl mx-auto px-4 pb-10 text-center text-xs text-green-600">
-        Hecho con ♥ para jugar aventuras. — Guardado automático en tu navegador.
+      <footer className="max-w-5xl mx-auto px-4 pb-10 text-center text-sm text-mist-400">
+        Basado en <b>Lenguaje Hábitat</b>, por Javier Morales Vargas, Copyright
+        2025
+        <br />
+        <p className="underline">
+          <a
+            href="https://aventuraenlafogata.itch.io/lenguaje-habitat"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ver en itch.io
+          </a>
+        </p>
+        Hecho con ♥ por Carlos Vega para jugar aventuras en cualquier{' '}
+        <i>hábitat</i>. — Guardado automático en tu navegador.
       </footer>
     </div>
   );

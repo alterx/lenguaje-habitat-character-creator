@@ -1,5 +1,3 @@
-// Auto-save hook for characters
-
 import { useEffect } from 'react';
 import type { Character } from '../types/Character';
 import { saveCharactersToLocal } from '../utils/localStorage';

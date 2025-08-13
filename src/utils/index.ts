@@ -1,5 +1,3 @@
-// Export all utilities
-
 export { 
   formatModifier, 
   download, 

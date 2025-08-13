@@ -1,5 +1,3 @@
-// Default character template
-
 import type { Character } from '../types/Character';
 
 export const createEmptyCharacter = (): Character => ({
@@ -17,4 +15,5 @@ export const createEmptyCharacter = (): Character => ({
   ],
   complication: { text: '' },
   notes: '',
+  status: 'draft',
 });

@@ -1,6 +1,3 @@
-// Adventure points management component
-
-import React from 'react';
 import { PackageControl } from '../ui/PackageControl';
 import { PACKAGE_NAMES } from '../../types/Character';
 import type { Character, CharacterAction } from '../../types/Character';
@@ -12,8 +9,10 @@ interface AdventurePointsProps {
 
 export function AdventurePoints({ character, dispatch }: AdventurePointsProps) {
   return (
-    <section className="bg-amber-100 rounded-2xl border border-amber-300 p-4">
-      <h3 className="font-semibold mb-2 text-green-900">Puntos de Aventura</h3>
+    <section className="bg-parchment-300 bg-paper-texture backdrop-blur-sm rounded-2xl border border-parchment-600 p-4 shadow-lg">
+      <h3 className="font-semibold mb-2 text-forest-800 font-serif">
+        Puntos de Aventura
+      </h3>
       <ul className="space-y-2">
         {PACKAGE_NAMES.map((p) => (
           <PackageControl

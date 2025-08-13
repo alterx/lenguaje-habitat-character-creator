@@ -1,6 +1,4 @@
-// Step 2: Attributes distribution
-
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Section, StepHeader, Divider } from '../../ui/BasicComponents';
 import { StepNavigation } from '../../ui/StepNavigation';
 import { SetSelector, ValueSelect } from '../../ui/FormComponents';

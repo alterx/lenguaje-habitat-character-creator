@@ -1,6 +1,3 @@
-// Step 4: Virtues and complications
-
-import React from 'react';
 import { Section, StepHeader, Divider } from '../../ui/BasicComponents';
 import { StepNavigation } from '../../ui/StepNavigation';
 import { VIRTUE_TYPES } from '../../../types/Character';
@@ -9,6 +6,9 @@ import type {
   CharacterAction,
   VirtueType,
 } from '../../../types/Character';
+import { PlusIcon, TrashIcon } from '@heroicons/react/24/solid';
+import { Button } from '../../ui/Button';
+import { Select, createSelectOptions } from '../../ui/Select';
 
 interface Step4VirtuesProps {
   state: Character;
@@ -50,34 +50,32 @@ export function Step4Virtues({
         {state.virtues.map((v, idx) => (
           <div
             key={v.id}
-            className="grid md:grid-cols-[160px_1fr_40px] gap-2 items-start"
+            className="grid md:grid-cols-[1fr_2fr_auto] gap-2 items-start"
           >
             <div>
               <label className="text-sm font-medium text-green-900">Tipo</label>
-              <select
-                className="mt-1 w-full px-3 py-2 border border-amber-400 rounded-xl bg-amber-50 text-green-900"
-                value={v.type}
-                onChange={(e) =>
-                  dispatch({
-                    type: 'setVirtue',
-                    id: v.id,
-                    patch: { type: e.target.value as VirtueType },
-                  })
-                }
-              >
-                {VIRTUE_TYPES.map((t) => (
-                  <option key={t} value={t}>
-                    {t}
-                  </option>
-                ))}
-              </select>
+              <div className="mt-1">
+                <Select
+                  variant="form"
+                  value={v.type}
+                  onChange={(value) =>
+                    dispatch({
+                      type: 'setVirtue',
+                      id: v.id,
+                      patch: { type: value as VirtueType },
+                    })
+                  }
+                  options={createSelectOptions([...VIRTUE_TYPES])}
+                  className="w-full"
+                />
+              </div>
             </div>
             <div>
               <label className="text-sm font-medium text-green-900">
                 Virtud #{idx + 1}
               </label>
               <textarea
-                className="mt-1 w-full px-3 py-2 border border-amber-400 rounded-xl bg-amber-50 text-green-900 resize-none"
+                className="mt-1 w-full px-3 py-2 border border-parchment-600 rounded-xl bg-amber-50 text-green-900 resize-none"
                 placeholder="Describe un artefacto, rasgo, talento o magia"
                 rows={3}
                 value={v.text}
@@ -91,25 +89,24 @@ export function Step4Virtues({
               />
             </div>
             <div className="pt-7">
-              <button
-                className="px-3 py-2 rounded-xl border border-amber-400 bg-amber-200 hover:bg-amber-300 disabled:opacity-50 text-green-900"
+              <Button
+                variant="destructive"
+                onPress={() => dispatch({ type: 'removeVirtue', id: v.id })}
                 disabled={state.virtues.length <= 1}
-                onClick={() => dispatch({ type: 'removeVirtue', id: v.id })}
-              >
-                —
-              </button>
+                icon={<TrashIcon className="h-5 w-5" />}
+              />
             </div>
           </div>
         ))}
-        <div className="flex justify-end">
-          <button
-            className="px-3 py-2 rounded-xl border border-amber-400 bg-amber-200 hover:bg-amber-300 disabled:opacity-50 text-green-900"
-            disabled={state.virtues.length >= 3}
-            onClick={() => dispatch({ type: 'addVirtue' })}
-          >
-            + Agregar virtud
-          </button>
-        </div>
+        {state.virtues.length < 3 && (
+          <div className="flex justify-center">
+            <Button
+              variant="primary"
+              onPress={() => dispatch({ type: 'addVirtue' })}
+              icon={<PlusIcon className="h-5 w-5" />}
+            />
+          </div>
+        )}
       </div>
       <Divider />
       <div>
@@ -129,6 +126,34 @@ export function Step4Virtues({
           }
         />
       </div>
+      <Divider />
+      <p className="text-xs text-forest-700 text-left">
+        Las características funcionan como "permisos narrativos". No cambian el
+        número en el dado, pero cambian la situación en la que tiras el dado.
+        Esto puede ser mucho más influyente:
+      </p>
+      <br />
+      <ul className="list-disc list-inside text-xs text-forest-700 text-left">
+        <li className="mb-2">
+          <b>Evitar una tirada:</b> Si tienes la virtud "El mejor cerrajero del
+          reino" y te enfrentas a una cerradura común, la guía podría decidir
+          que no necesitas hacer una tirada. Simplemente tienes éxito
+          automáticamente.
+        </li>
+        <li className="mb-2">
+          <b>Reducir la dificultad:</b> Si te enfrentas a una cerradura
+          legendaria, tu misma virtud podría convencer a la guía de que la
+          dificultad no es "Milagro" (22), sino "Épico" (18), haciendo el éxito
+          mucho más probable.
+        </li>
+        <li className="mb-2">
+          <b>Permitir lo imposible:</b> Una característica como "Magia de Fuego"
+          te permite intentar acciones que otros personajes ni siquiera podrían
+          considerar, como crear una barrera de llamas. La tirada será para ver
+          qué tan bien lo haces, pero el simple hecho de poder intentarlo se
+          debe a tu característica.
+        </li>
+      </ul>
     </Section>
   );
 }

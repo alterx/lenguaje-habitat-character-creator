@@ -1,5 +1,3 @@
-// PDF export utility
-
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import type { Character } from '../types/Character';

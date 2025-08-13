@@ -1,7 +1,3 @@
-// Dice log component for showing roll history
-
-import React from 'react';
-
 interface DiceLogProps {
   log: string[];
   onClear: () => void;
@@ -12,7 +8,7 @@ export function DiceLog({ log, onClear }: DiceLogProps) {
     <>
       <ul className="mt-3 space-y-1 max-h-48 overflow-auto text-sm">
         {log.length === 0 && (
-          <li className="text-green-600 text-center">Sin tiradas.</li>
+          <li className="text-forest-800 text-center">Sin tiradas.</li>
         )}
         {log.map((l, i) => (
           <li

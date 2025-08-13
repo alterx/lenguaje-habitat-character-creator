@@ -1,5 +1,3 @@
-// Game constants for Memoria y Niebla
-
 import type { AttributeSetKey, PackageSetKey } from '../types/Character';
 
 export const ATTRIBUTE_SETS: Record<AttributeSetKey, number[]> = {

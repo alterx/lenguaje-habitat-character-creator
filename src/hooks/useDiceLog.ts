@@ -1,5 +1,3 @@
-// Dice rolling hook
-
 import { useState } from 'react';
 
 export function useDiceLog() {

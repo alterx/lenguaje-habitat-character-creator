@@ -1,5 +1,3 @@
-// Utility functions for the character creator
-
 import type { Character } from '../types/Character';
 
 // Format modifier values for display

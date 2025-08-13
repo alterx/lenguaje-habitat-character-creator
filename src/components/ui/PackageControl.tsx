@@ -1,7 +1,11 @@
-// Package control component for managing adventure points
-
-import React from 'react';
 import type { PackageName } from '../../types/Character';
+import {
+  ArrowPathIcon,
+  MinusCircleIcon,
+  NoSymbolIcon,
+  PlusCircleIcon,
+} from '@heroicons/react/24/solid';
+import { Button } from './Button';
 
 interface PackageControlProps {
   name: PackageName;
@@ -17,36 +21,38 @@ export function PackageControl({
   onChange,
 }: PackageControlProps) {
   return (
-    <li className="flex items-center justify-between gap-2">
-      <div className="text-sm">
-        <div className="font-bold text-green-900">{name}</div>
-        <div className="text-xs text-green-700">
-          {current} / {max ?? '—'}
+    <li className="grid grid-cols-[auto_auto_2fr_auto_auto] gap-1">
+      <Button
+        variant="secondary"
+        onPress={() => onChange(0)}
+        disabled={max === null}
+        icon={<NoSymbolIcon className="h-5 w-5" />}
+      />
+      <Button
+        variant="secondary"
+        onPress={() => onChange(Math.max(0, current - 1))}
+        disabled={current <= 0}
+        icon={<MinusCircleIcon className="h-5 w-5" />}
+      />
+      <div className="text-sm text-center">
+        <div className="font-bold text-forest-800">{name}</div>
+        <div className="text-xs text-forest-700">
+          {`${current} ${name !== 'Recursos' ? '/ ' + (max ?? '—') : ''}`}
         </div>
       </div>
-      <div className="flex gap-1">
-        <button
-          className="px-2 py-1 rounded-lg border border-amber-400 bg-amber-200 hover:bg-amber-300 text-green-900 disabled:opacity-50 disabled:cursor-not-allowed"
-          onClick={() => onChange(current + 1)}
-          disabled={max !== null && current >= max}
-        >
-          +1
-        </button>
-        <button
-          className="px-2 py-1 rounded-lg border border-amber-400 bg-amber-200 hover:bg-amber-300 text-green-900 disabled:opacity-50 disabled:cursor-not-allowed"
-          onClick={() => onChange(Math.max(0, current - 1))}
-          disabled={current <= 0}
-        >
-          -1
-        </button>
-        <button
-          className="px-2 py-1 rounded-lg border border-amber-400 bg-amber-200 hover:bg-amber-300 text-green-900 disabled:opacity-50 disabled:cursor-not-allowed"
-          onClick={() => onChange(max ?? 0)}
-          disabled={max === null}
-        >
-          Reestablecer
-        </button>
-      </div>
+      <Button
+        variant="secondary"
+        onPress={() => onChange(current + 1)}
+        disabled={max !== null && current >= max && name !== 'Recursos'}
+        icon={<PlusCircleIcon className="h-5 w-5" />}
+      />
+
+      <Button
+        variant="secondary"
+        onPress={() => onChange(max ?? 0)}
+        disabled={max === null}
+        icon={<ArrowPathIcon className="h-5 w-5" />}
+      />
     </li>
   );
 }

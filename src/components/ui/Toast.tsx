@@ -1,7 +1,3 @@
-// Toast notification component
-
-import React from 'react';
-
 interface ToastProps {
   message: string | null;
   isVisible: boolean;
@@ -16,7 +12,7 @@ export function Toast({ message, isVisible }: ToastProps) {
       }`}
     >
       {message && (
-        <div className="px-3 py-2 rounded-xl shadow-lg bg-green-800 text-white text-sm border border-green-700">
+        <div className="px-3 py-2 rounded-xl shadow-2xl bg-forest-800/90 backdrop-blur-sm text-parchment-100 text-sm border border-forest-600">
           {message}
         </div>
       )}

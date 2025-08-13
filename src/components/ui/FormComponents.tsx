@@ -1,6 +1,4 @@
-// Form components for character creation
-
-import React from 'react';
+import { Select } from './Select';
 
 interface SetSelectorProps<T extends string> {
   label: string;
@@ -19,16 +17,16 @@ export function SetSelector<T extends string>({
 }: SetSelectorProps<T>) {
   return (
     <div className="mb-3">
-      <label className="text-sm font-medium text-green-900">{label}</label>
+      <label className="text-sm font-medium text-forest-700">{label}</label>
       <div className="mt-2 flex gap-2">
         {(Object.keys(sets) as T[]).map((key) => (
           <button
             key={key}
             onClick={() => onChange(key)}
-            className={`px-3 py-1.5 rounded-xl border ${
+            className={`px-3 py-1.5 rounded-xl border transition-colors ${
               value === key
-                ? 'bg-green-800 text-white border-green-800'
-                : 'bg-amber-200 border-amber-400 text-green-900 hover:bg-amber-300'
+                ? 'bg-forest-700 text-parchment-100 border-forest-600'
+                : 'bg-forest-800/60 border-forest-600 text-parchment-200 hover:bg-forest-700/80'
             }`}
           >
             {key}: {formatValue(sets[key])}
@@ -60,28 +58,26 @@ export function ValueSelect({
   onChange,
   placeholder = '— Elegir —',
 }: ValueSelectProps) {
+  const selectOptions = options.map((v) => {
+    const allowed = allowedCounts[v] ?? 0;
+    const assigned = assignedCounts[v] ?? 0;
+    const disabled = assigned >= allowed && value !== v;
+    return {
+      value: v,
+      label: formatOption(v),
+      disabled,
+    };
+  });
+
   return (
-    <div>
-      <label className="text-sm font-medium text-green-900">{label}</label>
-      <select
-        className="mt-1 w-full px-3 py-2 border border-amber-400 rounded-xl bg-amber-50 text-green-900 focus:outline-none focus:ring-2 focus:ring-green-600"
-        value={value ?? ''}
-        onChange={(e) =>
-          onChange(e.target.value === '' ? null : Number(e.target.value))
-        }
-      >
-        <option value="">{placeholder}</option>
-        {options.map((v, idx) => {
-          const allowed = allowedCounts[v] ?? 0;
-          const assigned = assignedCounts[v] ?? 0;
-          const disabled = assigned >= allowed && value !== v;
-          return (
-            <option key={`${v}-${idx}`} value={v} disabled={disabled}>
-              {formatOption(v)}
-            </option>
-          );
-        })}
-      </select>
-    </div>
+    <Select
+      label={label}
+      value={value?.toString() ?? ''}
+      onChange={(val) => onChange(val === '' ? null : Number(val))}
+      options={selectOptions}
+      placeholder={placeholder}
+      className="w-full"
+      variant="form"
+    />
   );
 }

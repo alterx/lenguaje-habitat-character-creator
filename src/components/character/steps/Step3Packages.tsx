@@ -1,6 +1,4 @@
-// Step 3: Adventure package distribution
-
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 import { Section, StepHeader, Divider } from '../../ui/BasicComponents';
 import { StepNavigation } from '../../ui/StepNavigation';
 import { SetSelector, ValueSelect } from '../../ui/FormComponents';
@@ -80,13 +78,13 @@ export function Step3Packages({
               onChange={(value) => dispatch({ type: 'setPack', pack, value })}
             />
             {pack === 'Aguante' && (
-              <p className="text-xs text-green-700 text-center">
+              <p className="text-xs text-forest-700 text-center">
                 Se reduce por daño, cansancio o esfuerzo. Si llega a 0, quedás
                 inconsciente. Gastá 1 para +2 en <b>Vigor</b> o <b>Agilidad</b>.
               </p>
             )}
             {pack === 'Espíritu' && (
-              <p className="text-xs text-green-700 text-center">
+              <p className="text-xs text-forest-700 text-center">
                 Se reduce por consecuencias emocionales, mentales y mágicas. Si
                 llega a 0, todos los obstáculos son más difíciles. Gastá 1 para
                 +2 en <b>Ingenio</b> o <b>Intuición</b>; o 2 para <b>repetir</b>{' '}
@@ -94,7 +92,7 @@ export function Step3Packages({
               </p>
             )}
             {pack === 'Recursos' && (
-              <p className="text-xs text-green-700 text-center">
+              <p className="text-xs text-forest-700 text-center">
                 Representan conexiones y dinero. Gastá puntos para compras,
                 favores u objetos convenientes.
               </p>

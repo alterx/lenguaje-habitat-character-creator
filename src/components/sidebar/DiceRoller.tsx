@@ -1,6 +1,4 @@
-// Dice roller component for the sidebar
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { DIFFICULTY_OPTIONS } from '../../constants/gameData';
 import { ATTRIBUTE_NAMES } from '../../types/Character';
 import { rollD20 } from '../../utils/gameUtils';
@@ -11,6 +9,8 @@ import type {
   CharacterAction,
 } from '../../types/Character';
 import { DiceLog } from './DiceLog';
+import { Select, createSelectOptions } from '../ui/Select';
+import { Button } from '../ui/Button';
 
 interface DiceRollerProps {
   character: Character;
@@ -82,44 +82,35 @@ export function DiceRoller({
   }
 
   return (
-    <section className="bg-amber-100 rounded-2xl border border-amber-300 p-4">
-      <h3 className="font-semibold mb-2 text-green-900">Ayudante de tiradas</h3>
+    <section className="bg-parchment-300 bg-paper-texture backdrop-blur-sm rounded-2xl border border-parchment-600 p-4 shadow-lg">
+      <h3 className="font-semibold mb-2 text-forest-800 font-serif">
+        Ayudante de tiradas
+      </h3>
       {lastRoll && (
-        <div className="text-center mb-3 px-3 py-2 border border-amber-300 rounded-xl text-sm bg-amber-50 text-green-900">
+        <div className="text-center mb-3 px-3 py-2 border border-forest-600 rounded-xl text-sm bg-forest-700 text-parchment-100">
           {lastRoll}
         </div>
       )}
       <div className="grid grid-cols-2 gap-2">
-        <select
-          className="px-3 py-2 border border-amber-400 rounded-xl bg-amber-50 text-green-900"
+        <Select
           value={selectedAttribute}
-          onChange={(e) =>
-            setSelectedAttribute(e.target.value as AttributeName)
+          onChange={(value) => setSelectedAttribute(value as AttributeName)}
+          options={createSelectOptions([...ATTRIBUTE_NAMES])}
+          variant="form"
+        />
+        <Select
+          value={selectedDifficulty?.toString() ?? ''}
+          onChange={(value) =>
+            setSelectedDifficulty(value === '' ? null : Number(value))
           }
-        >
-          {ATTRIBUTE_NAMES.map((a) => (
-            <option key={a} value={a}>
-              {a}
-            </option>
-          ))}
-        </select>
-        <select
-          className="px-3 py-2 border border-amber-400 rounded-xl bg-amber-50 text-green-900"
-          value={selectedDifficulty ?? ''}
-          onChange={(e) =>
-            setSelectedDifficulty(
-              e.target.value === '' ? null : Number(e.target.value)
-            )
-          }
-        >
-          <option value="">Dificultad</option>
-          {DIFFICULTY_OPTIONS.map((d) => (
-            <option key={d.value} value={d.value}>
-              {d.label} ({d.value})
-            </option>
-          ))}
-        </select>
-        <label className="flex items-center gap-2 text-sm col-span-2 text-green-800">
+          options={DIFFICULTY_OPTIONS.map((d) => ({
+            value: d.value,
+            label: `${d.label} (${d.value})`,
+          }))}
+          placeholder="Dificultad"
+          variant="form"
+        />
+        <label className="flex items-center gap-2 text-sm col-span-2 text-forest-800">
           <input
             type="checkbox"
             checked={useBoost || false}
@@ -135,7 +126,7 @@ export function DiceRoller({
             )}
           </p>
         </label>
-        <label className="flex items-center gap-2 text-sm col-span-2 text-green-800">
+        <label className="flex items-center gap-2 text-sm col-span-2 text-forest-800">
           <input
             type="checkbox"
             checked={useReRoll || false}
@@ -145,9 +136,9 @@ export function DiceRoller({
             -2 puntos de <b>Espíritu</b> para repetir tirada
           </p>
         </label>
-        <button
-          className="col-span-2 px-3 py-2 rounded-xl bg-green-800 text-white hover:bg-green-700"
-          onClick={() => {
+        <Button
+          variant="primary"
+          onPress={() => {
             if (selectedDifficulty === null) {
               onShowModal('Seleccioná una dificultad.', {
                 title: 'Dificultad requerida',
@@ -200,9 +191,9 @@ export function DiceRoller({
               reroll: useReRoll,
             });
           }}
-        >
-          Tirar d20
-        </button>
+          label="Tirar d20"
+          className="col-span-2"
+        />
       </div>
 
       <DiceLog log={diceLog} onClear={onClearLog} />

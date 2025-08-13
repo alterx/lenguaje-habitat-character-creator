@@ -2,4 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root { height: 100%; }
+html, body, #root { 
+  height: 100%; 
+  background: #0a1f0a;
+}
+
+/* Custom scrollbar for dark theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f4a1f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3a7c3a;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4a9d4a;
+}
+
+/* Forest-themed animations */
+@keyframes mistSwirl {
+  0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.1; }
+  50% { transform: translateY(-10px) rotate(180deg); opacity: 0.2; }
+}
+
+.mist-animation {
+  animation: mistSwirl 6s ease-in-out infinite;
+}
+
+/* Custom text selection colors */
+::selection {
+  background: rgba(74, 157, 74, 0.3);
+  color: #f7f9f7;
+}
+
+/* Enhanced focus styles for accessibility */
+input:focus, select:focus, button:focus, textarea:focus {
+  outline: 2px solid #4a9d4a;
+  outline-offset: 2px;
+}

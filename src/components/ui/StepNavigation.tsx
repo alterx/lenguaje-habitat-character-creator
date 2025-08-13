@@ -1,12 +1,12 @@
-// Step navigation component
-
-import React from 'react';
+import { Button } from './Button';
 
 interface StepNavigationProps {
   step: number;
   canProceed: boolean;
   onBack?: () => void;
+  onBackLabel?: string;
   onNext?: () => void;
+  onNextLabel?: string;
   statusMessage: string;
   isValid: boolean;
 }
@@ -15,7 +15,9 @@ export function StepNavigation({
   step,
   canProceed,
   onBack,
+  onBackLabel = 'Atrás',
   onNext,
+  onNextLabel = 'Siguiente',
   statusMessage,
   isValid,
 }: StepNavigationProps) {
@@ -26,21 +28,20 @@ export function StepNavigation({
       </p>
       <div className="flex gap-2">
         {onBack && (
-          <button
-            className="px-4 py-2 rounded-xl border border-amber-400 bg-amber-200 hover:bg-amber-300 text-green-900"
-            onClick={onBack}
-          >
-            Atrás
-          </button>
+          <Button
+            onPress={onBack}
+            label={onBackLabel}
+            className="min-w-[100px] min-h-[44px]"
+          />
         )}
         {onNext && (
-          <button
-            className="px-4 py-2 rounded-xl bg-green-800 text-white hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+          <Button
+            variant="primary"
+            onPress={onNext}
+            label={onNextLabel}
             disabled={!canProceed}
-            onClick={onNext}
-          >
-            Siguiente
-          </button>
+            className="min-w-[100px] min-h-[44px]"
+          />
         )}
       </div>
     </div>

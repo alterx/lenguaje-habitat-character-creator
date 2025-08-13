@@ -1,7 +1,8 @@
-// Header component with logo and character management controls
-
-import React from 'react';
 import type { Character } from '../../types/Character';
+import { CloudArrowUpIcon, UserPlusIcon } from '@heroicons/react/24/solid';
+import { Button } from '../ui/Button';
+import { Select } from '../ui/Select';
+import { useScrollDirection } from '../../hooks/useScrollDirection';
 
 interface HeaderProps {
   characters: Character[];
@@ -24,8 +25,14 @@ export function Header({
   selectedChar,
   onUploadJSON,
 }: HeaderProps) {
+  const scrollDirection = useScrollDirection();
+
   return (
-    <header className="sticky top-0 z-20 backdrop-blur bg-white border-b border-amber-200">
+    <header
+      className={`sticky top-0 z-20 backdrop-blur bg-mist-50/70 border-forest-900/90 shadow-lg transition-transform duration-300 ease-in-out ${
+        scrollDirection === 'down' ? '-translate-y-full' : 'translate-y-0'
+      }`}
+    >
       <div className="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <img
@@ -34,48 +41,46 @@ export function Header({
             style={{
               height: '80px',
               width: 'auto',
-              margin: '20px',
+              marginTop: '20px',
+              marginBottom: '20px',
             }}
           />
         </div>
         {selectedChar && (
-          <div
-            className="flex items-center gap-2 grid-cols-3"
-            id="app-controls"
-          >
-            <button
-              className="px-3 py-1.5 rounded-xl bg-green-800 text-white hover:bg-green-700 text-sm"
-              onClick={addCharacter}
-            >
-              Nuevo personaje
-            </button>{' '}
-            |
-            <label className="px-3 py-1.5 rounded-xl bg-amber-200 hover:bg-amber-300 text-sm cursor-pointer text-green-900">
-              Cargar Personaje
-              <input
-                type="file"
-                accept="application/json"
-                className="sr-only"
-                onChange={onUploadJSON}
+          <div className="flex-column" id="app-controls">
+            <div className="flex items-center gap-2 grid-cols-3">
+              <Button
+                variant="black"
+                onPress={addCharacter}
+                icon={<UserPlusIcon className="h-5 w-5" />}
               />
-            </label>
-            {characters.length > 0 && (
-              <>
-                |<p className="text-sm text-green-900">Personaje existente: </p>
-                <select
-                  className="px-3 py-1.5 rounded-xl border border-amber-400 bg-amber-50 text-green-900"
-                  value={selectedId}
-                  onChange={(e) => selectCharacter(e.target.value)}
-                >
-                  <option value="">Seleccionar personaje...</option>
-                  {characters.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.name || 'Sin nombre'}
-                    </option>
-                  ))}
-                </select>
-              </>
-            )}
+              <span className="text-black">|</span>
+              <label className="px-2.5 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-black text-white hover:bg-gray-800 border border-gray-700 shadow-lg hover:shadow-xl focus:ring-gray-500 font-medium">
+                <CloudArrowUpIcon className="h-4 w-4" />
+
+                <input
+                  type="file"
+                  accept="application/json"
+                  className="sr-only"
+                  onChange={onUploadJSON}
+                />
+              </label>
+              {characters.length > 0 && (
+                <>
+                  <span className="text-black">|</span>
+                  <Select
+                    value={selectedId}
+                    variant="black"
+                    onChange={selectCharacter}
+                    options={characters.map((c) => ({
+                      value: c.id,
+                      label: c.name || 'Sin nombre',
+                    }))}
+                    placeholder="Seleccionar personaje..."
+                  />
+                </>
+              )}
+            </div>
           </div>
         )}
       </div>

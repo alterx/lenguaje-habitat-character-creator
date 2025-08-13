@@ -1,8 +1,6 @@
-// Types for the Memoria y Niebla character creator
-
 export const ATTRIBUTE_NAMES = ['Vigor', 'Agilidad', 'Ingenio', 'Intuición'] as const;
 export const PACKAGE_NAMES = ['Aguante', 'Espíritu', 'Recursos'] as const;
-export const VIRTUE_TYPES = ['Artefacto', 'Magia', 'Rasgo', 'Talento', 'Libre'] as const;
+export const VIRTUE_TYPES = ['Artefacto', 'Magia', 'Rasgo', 'Talento'] as const;
 
 export type AttributeName = (typeof ATTRIBUTE_NAMES)[number];
 export type PackageName = (typeof PACKAGE_NAMES)[number];
@@ -21,6 +19,8 @@ export interface Complication {
   text: string;
 }
 
+export type Status = 'draft' | 'ready';
+
 export interface Character {
   id: string;
   name: string;
@@ -32,6 +32,7 @@ export interface Character {
   virtues: Virtue[]; // exactly 3
   complication: Complication;
   notes: string;
+  status: Status;
 }
 
 export type CharacterAction =

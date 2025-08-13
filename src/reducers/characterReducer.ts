@@ -1,5 +1,3 @@
-// Character reducer for state management
-
 import type { Character, CharacterAction, AttributeName, PackageName } from '../types/Character';
 import { ATTRIBUTE_NAMES, PACKAGE_NAMES } from '../types/Character';
 
@@ -38,12 +36,13 @@ export function characterReducer(state: Character, action: CharacterAction): Cha
     }
     
     case 'setPack': {
-      const packs = { ...state.packs, [action.pack]: action.value };
+      const packs = { ...state.packs, [action.pack]:  action.value };
       const current = { ...state.current };
       if (action.pack === 'Aguante' && action.value != null)
         current.Aguante = action.value;
       if (action.pack === 'Espíritu' && action.value != null)
         current.Espíritu = action.value;
+   
       if (action.pack === 'Recursos' && action.value != null)
         current.Recursos = action.value;
       return { ...state, packs, current };
@@ -70,7 +69,6 @@ export function characterReducer(state: Character, action: CharacterAction): Cha
         ...state,
         virtues: [
           ...state.virtues,
-          { id: crypto.randomUUID(), type: 'Libre', text: '' },
         ],
       };
     }

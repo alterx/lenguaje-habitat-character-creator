@@ -1,5 +1,3 @@
-// Local storage utilities
-
 import type { Character } from '../types/Character';
 
 export function loadCharactersFromLocal(): Character[] {

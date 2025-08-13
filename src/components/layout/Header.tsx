@@ -55,10 +55,9 @@ export function Header({
                 variant="black"
                 onPress={addCharacter}
                 icon={<UserPlusIcon className="h-4 sm:h-5 w-4 sm:w-5" />}
-                className="!px-2 sm:!px-2.5 !py-2 sm:!py-2.5"
               />
               <span className="text-black text-sm">|</span>
-              <label className="px-2 sm:px-2.5 py-2 sm:py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-black text-white hover:bg-gray-800 border border-gray-700 shadow-lg hover:shadow-xl focus:ring-gray-500 font-medium">
+              <label className="px-2.5 py-2.5 rounded-xl transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-black text-white hover:bg-gray-800 border border-gray-700 shadow-lg hover:shadow-xl focus:ring-gray-500 font-medium">
                 <CloudArrowUpIcon className="h-3 sm:h-4 w-3 sm:w-4" />
 
                 <input

@@ -32,11 +32,11 @@ export function StepHeader({
   title: string;
 }) {
   return (
-    <div className="flex items-center gap-3 mb-4">
+    <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 mb-4">
       <div className="px-3 py-1 rounded-full bg-forest-700 border border-forest-600 text-parchment-100 text-sm font-medium">
         Paso {step} / {total}
       </div>
-      <h3 className="text-lg font-semibold text-forest-700 font-serif">
+      <h3 className="text-lg font-semibold text-forest-700 font-serif text-center sm:text-left">
         {title}
       </h3>
     </div>

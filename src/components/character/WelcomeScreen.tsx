@@ -34,9 +34,7 @@ export function WelcomeScreen({
           variant="primary"
           size="large"
           onPress={onCreateCharacter}
-          label={
-            isFirstCharacter ? 'Crear mi primer personaje!' : 'Vamos a ello'
-          }
+          label={isFirstCharacter ? '¡Crear mi primer personaje!' : '¡Vamos!'}
         />
         <hr className="my-6 border-forest-600" />
         <p className="text-forest-700 mb-3 mt-6 font-light text-xs">

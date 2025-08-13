@@ -73,16 +73,20 @@ export function Step5Preview({
         </>
       )}
       {isPlaying && (
-        <div className="flex-row justify-end mb-4">
+        <div className="flex flex-row justify-end mb-4">
           <Button
             onPress={stopPlaying}
             icon={<PencilSquareIcon className="h-5 w-5" />}
+            label="Editar"
+            className="sm:!px-3"
           />
         </div>
       )}
       <CharacterSheet character={state} />
 
       <div className="gap-2 flex justify-end pb-8 pt-4">
+        {/*
+        // disable this for the time being
         <Button
           disabled={!allValid}
           onPress={async () => {
@@ -95,7 +99,7 @@ export function Step5Preview({
             }
           }}
           icon={<DocumentIcon className="h-5 w-5" />}
-        />
+        /> */}
 
         <Button
           onPress={onDownloadJSON}

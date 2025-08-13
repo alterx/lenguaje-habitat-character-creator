@@ -22,16 +22,16 @@ export function StepNavigation({
   isValid,
 }: StepNavigationProps) {
   return (
-    <div className="mb-4 flex items-center justify-between">
+    <div className="mb-4 flex flex-col sm:flex-row items-center justify-between gap-3">
       <p className={`text-sm ${isValid ? 'text-green-800' : 'text-amber-800'}`}>
         {statusMessage}
       </p>
-      <div className="flex gap-2">
+      <div className="flex gap-2 w-full sm:w-auto">
         {onBack && (
           <Button
             onPress={onBack}
             label={onBackLabel}
-            className="min-w-[100px] min-h-[44px]"
+            className="min-w-[100px] min-h-[44px] flex-1 sm:flex-none"
           />
         )}
         {onNext && (
@@ -40,7 +40,7 @@ export function StepNavigation({
             onPress={onNext}
             label={onNextLabel}
             disabled={!canProceed}
-            className="min-w-[100px] min-h-[44px]"
+            className="min-w-[100px] min-h-[44px] flex-1 sm:flex-none"
           />
         )}
       </div>

@@ -1,6 +1,28 @@
-export const ATTRIBUTE_NAMES = ['Vigor', 'Agilidad', 'Ingenio', 'Intuición'] as const;
-export const PACKAGE_NAMES = ['Aguante', 'Espíritu', 'Recursos'] as const;
-export const VIRTUE_TYPES = ['Artefacto', 'Magia', 'Rasgo', 'Talento'] as const;
+// English keys for data structures
+export const ATTRIBUTE_NAMES = ['vigor', 'agility', 'wit', 'intuition'] as const;
+export const PACKAGE_NAMES = ['endurance', 'spirit', 'resources'] as const;
+export const VIRTUE_TYPES = ['artifact', 'magic', 'trait', 'talent'] as const;
+
+// Spanish labels for display
+export const ATTRIBUTE_LABELS = {
+  vigor: 'Vigor',
+  agility: 'Agilidad', 
+  wit: 'Ingenio',
+  intuition: 'Intuición'
+} as const;
+
+export const PACKAGE_LABELS = {
+  endurance: 'Aguante',
+  spirit: 'Espíritu',
+  resources: 'Recursos'
+} as const;
+
+export const VIRTUE_TYPE_LABELS = {
+  artifact: 'Artefacto',
+  magic: 'Magia',
+  trait: 'Rasgo',
+  talent: 'Talento'
+} as const;
 
 export type AttributeName = (typeof ATTRIBUTE_NAMES)[number];
 export type PackageName = (typeof PACKAGE_NAMES)[number];
@@ -28,7 +50,7 @@ export interface Character {
   attributeSet: AttributeSetKey;
   packs: Record<PackageName, number | null>; // maximum/base values
   packageSet: PackageSetKey;
-  current: Record<'Aguante' | 'Espíritu' | 'Recursos', number>; // current pool values
+  current: Record<PackageName, number>; // current pool values
   virtues: Virtue[]; // exactly 3
   complication: Complication;
   notes: string;

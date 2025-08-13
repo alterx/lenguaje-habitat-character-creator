@@ -1,4 +1,9 @@
-import { ATTRIBUTE_NAMES, PACKAGE_NAMES } from '../../types/Character';
+import {
+  ATTRIBUTE_NAMES,
+  PACKAGE_NAMES,
+  ATTRIBUTE_LABELS,
+  PACKAGE_LABELS,
+} from '../../types/Character';
 import { formatModifier } from '../../utils/gameUtils';
 import type { Character } from '../../types/Character';
 import {
@@ -23,16 +28,16 @@ export function CharacterSheet({
   isPreview = false,
 }: CharacterSheetProps) {
   const attributeIcons = {
-    Vigor: FireIcon,
-    Agilidad: BoltIcon,
-    Ingenio: EyeIcon,
-    Intuición: LightBulbIcon,
+    vigor: FireIcon,
+    agility: BoltIcon,
+    wit: EyeIcon,
+    intuition: LightBulbIcon,
   };
 
   const packageIcons = {
-    Aguante: HeartIcon,
-    Espíritu: SparklesIcon,
-    Recursos: ArchiveBoxIcon,
+    endurance: HeartIcon,
+    spirit: SparklesIcon,
+    resources: ArchiveBoxIcon,
   };
 
   return (
@@ -87,7 +92,7 @@ export function CharacterSheet({
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-xs font-bold text-forest-800 uppercase leading-tight">
-                          {attr}
+                          {ATTRIBUTE_LABELS[attr]}
                         </div>
                         <div className="text-lg font-bold text-forest-900">
                           {formatModifier(character.attributes[attr])}
@@ -102,7 +107,7 @@ export function CharacterSheet({
                           <IconComponent className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-forest-700" />
                         </div>
                         <span className="text-xs font-bold text-forest-800 uppercase leading-tight">
-                          {attr}
+                          {ATTRIBUTE_LABELS[attr]}
                         </span>
                       </div>
                       <div className="text-center">
@@ -127,7 +132,7 @@ export function CharacterSheet({
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 lg:gap-3">
               {PACKAGE_NAMES.map((pkg) => {
                 const IconComponent = packageIcons[pkg];
-                const noMax = pkg === 'Recursos';
+                const noMax = pkg === 'resources';
                 return (
                   <div
                     key={pkg}
@@ -140,7 +145,7 @@ export function CharacterSheet({
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-xs font-bold text-forest-800 uppercase leading-tight">
-                          {pkg}
+                          {PACKAGE_LABELS[pkg]}
                         </div>
                         <div className="text-xs text-forest-600">
                           ACTUAL:{' '}
@@ -167,7 +172,7 @@ export function CharacterSheet({
                         </div>
                       </div>
                       <div className="text-xs font-bold text-forest-800 uppercase mb-1 leading-tight">
-                        {pkg}
+                        {PACKAGE_LABELS[pkg]}
                       </div>
                       <div className="text-xs text-forest-600 mb-1">ACTUAL</div>
                       <div className="text-lg sm:text-xl font-bold text-forest-900">

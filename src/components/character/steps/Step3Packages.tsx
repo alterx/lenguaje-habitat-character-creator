@@ -80,14 +80,14 @@ export function Step3Packages({
               formatOption={(v) => String(v)}
               onChange={(value) => dispatch({ type: 'setPack', pack, value })}
             />
-            {pack === 'Aguante' && (
+            {pack === 'endurance' && (
               <p className="text-xs text-forest-700 text-center">
                 Se reduce por daño, cansancio o esfuerzo. Si llega a 0, quedás
                 inconsciente. Gastá 1 para +2 en <strong>Vigor</strong> o{' '}
                 <strong>Agilidad</strong>.
               </p>
             )}
-            {pack === 'Espíritu' && (
+            {pack === 'spirit' && (
               <p className="text-xs text-forest-700 text-center">
                 Se reduce por consecuencias emocionales, mentales y mágicas. Si
                 llega a 0, todos los obstáculos son más difíciles. Gastá 1 para
@@ -95,7 +95,7 @@ export function Step3Packages({
                 para <strong>repetir</strong> un dado.
               </p>
             )}
-            {pack === 'Recursos' && (
+            {pack === 'resources' && (
               <p className="text-xs text-forest-700 text-center">
                 Representan conexiones y dinero. Gastá puntos para compras,
                 favores u objetos convenientes.

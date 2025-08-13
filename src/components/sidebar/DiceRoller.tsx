@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { DIFFICULTY_OPTIONS } from '../../constants/gameData';
-import { ATTRIBUTE_NAMES } from '../../types/Character';
+import { ATTRIBUTE_NAMES, ATTRIBUTE_LABELS, PACKAGE_LABELS } from '../../types/Character';
 import { rollD20 } from '../../utils/gameUtils';
 import type {
   AttributeName,
@@ -44,7 +44,7 @@ export function DiceRoller({
   mode = 'player',
 }: DiceRollerProps) {
   const [selectedAttribute, setSelectedAttribute] =
-    useState<AttributeName>('Vigor');
+    useState<AttributeName>('vigor');
   const [selectedDifficulty, setSelectedDifficulty] = useState<number | null>(
     null
   );
@@ -112,7 +112,7 @@ export function DiceRoller({
             const value = character.attributes[attr] ?? 0;
             return {
               value: attr,
-              label: `${attr} (${value >= 0 ? '+' : ''}${value})`,
+              label: `${ATTRIBUTE_LABELS[attr]} (${value >= 0 ? '+' : ''}${value})`,
             };
           })}
           variant="form"
@@ -141,11 +141,11 @@ export function DiceRoller({
           />
           <p>
             +2 en la tirada al gastar 1 punto de{' '}
-            {selectedAttribute === 'Vigor' ||
-            selectedAttribute === 'Agilidad' ? (
-              <strong>Aguante</strong>
+            {selectedAttribute === 'vigor' ||
+            selectedAttribute === 'agility' ? (
+              <strong>{PACKAGE_LABELS.endurance}</strong>
             ) : (
-              <strong>Espíritu</strong>
+              <strong>{PACKAGE_LABELS.spirit}</strong>
             )}
           </p>
         </label>
@@ -156,7 +156,7 @@ export function DiceRoller({
             onChange={(e) => setUseReRoll(!!e.target.checked)}
           />
           <p>
-            -2 puntos de <strong>Espíritu</strong> para repetir tirada
+            -2 puntos de <strong>{PACKAGE_LABELS.spirit}</strong> para repetir tirada
           </p>
         </label>
         <Button
@@ -174,20 +174,20 @@ export function DiceRoller({
             if (useBoost) {
               // Check which package to spend from based on attribute
               if (
-                selectedAttribute === 'Vigor' ||
-                selectedAttribute === 'Agilidad'
+                selectedAttribute === 'vigor' ||
+                selectedAttribute === 'agility'
               ) {
-                spend = 'Aguante';
+                spend = 'endurance';
               } else if (
-                selectedAttribute === 'Ingenio' ||
-                selectedAttribute === 'Intuición'
+                selectedAttribute === 'wit' ||
+                selectedAttribute === 'intuition'
               ) {
-                spend = 'Espíritu';
+                spend = 'spirit';
               }
 
               // Check if we have enough points to spend
               if (spend && (character.current[spend] ?? 0) <= 0) {
-                onShowModal(`No tenés puntos de ${spend} para gastar.`, {
+                onShowModal(`No tenés puntos de ${PACKAGE_LABELS[spend]} para gastar.`, {
                   title: 'Puntos insuficientes',
                   type: 'warning',
                 });
@@ -196,10 +196,10 @@ export function DiceRoller({
             }
 
             if (useReRoll) {
-              spend = 'Espíritu';
+              spend = 'spirit';
               // Check if we have enough points to spend
               if (spend && (character.current[spend] ?? 0) <= 0) {
-                onShowModal(`No tenés puntos de ${spend} para gastar.`, {
+                onShowModal(`No tenés puntos de ${PACKAGE_LABELS[spend]} para gastar.`, {
                   title: 'Puntos insuficientes',
                   type: 'warning',
                 });

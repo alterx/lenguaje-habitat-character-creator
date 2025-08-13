@@ -28,9 +28,9 @@ export function characterReducer(state: Character, action: CharacterAction): Cha
         {} as Record<PackageName, number | null>
       );
       const current = {
-        Aguante: 0,
-        Espíritu: 0,
-        Recursos: 0,
+        endurance: 0,
+        spirit: 0,
+        resources: 0,
       } as Character['current'];
       return { ...state, packageSet: action.value, packs, current };
     }
@@ -38,13 +38,13 @@ export function characterReducer(state: Character, action: CharacterAction): Cha
     case 'setPack': {
       const packs = { ...state.packs, [action.pack]:  action.value };
       const current = { ...state.current };
-      if (action.pack === 'Aguante' && action.value != null)
-        current.Aguante = action.value;
-      if (action.pack === 'Espíritu' && action.value != null)
-        current.Espíritu = action.value;
+      if (action.pack === 'endurance' && action.value != null)
+        current.endurance = action.value;
+      if (action.pack === 'spirit' && action.value != null)
+        current.spirit = action.value;
    
-      if (action.pack === 'Recursos' && action.value != null)
-        current.Recursos = action.value;
+      if (action.pack === 'resources' && action.value != null)
+        current.resources = action.value;
       return { ...state, packs, current };
     }
     
@@ -95,15 +95,15 @@ export function characterReducer(state: Character, action: CharacterAction): Cha
         ...state,
         id: crypto.randomUUID(),
         name: '',
-        attributes: { Vigor: null, Agilidad: null, Ingenio: null, Intuición: null },
+        attributes: { vigor: null, agility: null, wit: null, intuition: null },
         attributeSet: 'A',
-        packs: { Aguante: null, Espíritu: null, Recursos: null },
+        packs: { endurance: null, spirit: null, resources: null },
         packageSet: 'A',
-        current: { Aguante: 0, Espíritu: 0, Recursos: 0 },
+        current: { endurance: 0, spirit: 0, resources: 0 },
         virtues: [
-          { id: crypto.randomUUID(), type: 'Artefacto', text: '' },
-          { id: crypto.randomUUID(), type: 'Rasgo', text: '' },
-          { id: crypto.randomUUID(), type: 'Talento', text: '' },
+          { id: crypto.randomUUID(), type: 'artifact', text: '' },
+          { id: crypto.randomUUID(), type: 'trait', text: '' },
+          { id: crypto.randomUUID(), type: 'talent', text: '' },
         ],
         complication: { text: '' },
         notes: '',

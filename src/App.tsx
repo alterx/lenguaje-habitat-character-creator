@@ -15,7 +15,11 @@ import {
 } from './utils/localStorage';
 import { download, encodeShare, decodeShare } from './utils/gameUtils';
 import type { Character } from './types/Character';
-import { TrashIcon } from '@heroicons/react/24/solid';
+import {
+  TrashIcon,
+  ChevronDownIcon,
+  ChevronUpIcon,
+} from '@heroicons/react/24/solid';
 
 export default function App() {
   // Multi-character state
@@ -100,6 +104,9 @@ export default function App() {
 
   // Step management
   const [step, setStep] = useState(1);
+
+  // Mobile form collapse state
+  const [isFormCollapsed, setIsFormCollapsed] = useState(false);
 
   // Dice and toast management
   const dice = useDiceLog();
@@ -258,15 +265,33 @@ export default function App() {
           ) : (
             <>
               {selectedChar && (
-                <div className="gap-4 flex pb-8">
-                  <h1 className="text-4xl text-parchment-100 font-bold font-serif tracking-wide display-inline">
+                <div className="gap-4 flex pb-8 items-center">
+                  <h1 className="text-4xl text-parchment-100 font-bold font-serif tracking-wide flex-1">
                     {selectedChar?.name ? selectedChar.name : 'Nuevo Personaje'}
                   </h1>
 
+                  {/* Mobile collapse toggle */}
+                  <button
+                    className="md:hidden p-2 rounded-lg bg-forest-700 hover:bg-forest-600 transition-colors"
+                    onClick={() => setIsFormCollapsed(!isFormCollapsed)}
+                    title={
+                      isFormCollapsed
+                        ? 'Mostrar formulario'
+                        : 'Ocultar formulario'
+                    }
+                  >
+                    {isFormCollapsed ? (
+                      <ChevronDownIcon className="h-5 w-5" />
+                    ) : (
+                      <ChevronUpIcon className="h-5 w-5" />
+                    )}
+                  </button>
+
                   {selectedId && (
                     <button
-                      className="justify-center"
+                      className="justify-center p-2 rounded-lg bg-red-700 hover:bg-red-600 transition-colors"
                       onClick={() => deleteCharacter(selectedId)}
+                      title="Eliminar personaje"
                     >
                       <TrashIcon className="h-5 w-5" />
                     </button>
@@ -275,15 +300,23 @@ export default function App() {
               )}
 
               {selectedChar && (
-                <CharacterForm
-                  character={state}
-                  dispatch={dispatch}
-                  currentStep={step}
-                  onStepChange={setStep}
-                  onShowModal={showModal}
-                  onDownloadJSON={onDownloadJSON}
-                  onShareLink={onShareLink}
-                />
+                <div
+                  className={`transition-all duration-300 ${
+                    isFormCollapsed
+                      ? 'max-h-0 overflow-hidden opacity-0 md:max-h-none md:overflow-visible md:opacity-100'
+                      : 'max-h-none'
+                  }`}
+                >
+                  <CharacterForm
+                    character={state}
+                    dispatch={dispatch}
+                    currentStep={step}
+                    onStepChange={setStep}
+                    onShowModal={showModal}
+                    onDownloadJSON={onDownloadJSON}
+                    onShareLink={onShareLink}
+                  />
+                </div>
               )}
             </>
           )}

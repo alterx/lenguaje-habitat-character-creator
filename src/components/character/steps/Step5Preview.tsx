@@ -77,8 +77,6 @@ export function Step5Preview({
           <Button
             onPress={stopPlaying}
             icon={<PencilSquareIcon className="h-5 w-5" />}
-            label="Editar"
-            className="sm:!px-3"
           />
         </div>
       )}

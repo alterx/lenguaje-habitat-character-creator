@@ -50,7 +50,7 @@ export function Step4Virtues({
         {state.virtues.map((v, idx) => (
           <div
             key={v.id}
-            className="grid md:grid-cols-[1fr_2fr_auto] gap-2 items-start"
+            className="grid grid-cols-1 md:grid-cols-[1fr_2fr_auto] gap-2 items-start"
           >
             <div>
               <label className="text-sm font-medium text-green-900">Tipo</label>
@@ -88,7 +88,7 @@ export function Step4Virtues({
                 }
               />
             </div>
-            <div className="pt-7">
+            <div className="flex justify-center md:justify-start md:pt-7">
               <Button
                 variant="destructive"
                 onPress={() => dispatch({ type: 'removeVirtue', id: v.id })}

@@ -28,6 +28,7 @@ interface DiceRollerProps {
       onConfirm?: () => void;
     }
   ) => void;
+  mode: 'player' | 'gm';
 }
 
 export function DiceRoller({
@@ -39,6 +40,7 @@ export function DiceRoller({
   onClearLog,
   diceLog,
   onShowModal,
+  mode = 'player',
 }: DiceRollerProps) {
   const [selectedAttribute, setSelectedAttribute] =
     useState<AttributeName>('Vigor');
@@ -97,19 +99,23 @@ export function DiceRoller({
           onChange={(value) => setSelectedAttribute(value as AttributeName)}
           options={createSelectOptions([...ATTRIBUTE_NAMES])}
           variant="form"
+          className={mode === 'player' ? 'col-span-2' : ''}
         />
-        <Select
-          value={selectedDifficulty?.toString() ?? ''}
-          onChange={(value) =>
-            setSelectedDifficulty(value === '' ? null : Number(value))
-          }
-          options={DIFFICULTY_OPTIONS.map((d) => ({
-            value: d.value,
-            label: `${d.label} (${d.value})`,
-          }))}
-          placeholder="Dificultad"
-          variant="form"
-        />
+        {mode === 'gm' && (
+          <Select
+            value={selectedDifficulty?.toString() ?? ''}
+            onChange={(value) =>
+              setSelectedDifficulty(value === '' ? null : Number(value))
+            }
+            options={DIFFICULTY_OPTIONS.map((d) => ({
+              value: d.value,
+              label: `${d.label} (${d.value})`,
+            }))}
+            placeholder="Dificultad"
+            variant="form"
+          />
+        )}
+
         <label className="flex items-center gap-2 text-sm col-span-2 text-forest-800">
           <input
             type="checkbox"

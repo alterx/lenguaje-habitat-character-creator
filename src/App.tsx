@@ -87,7 +87,7 @@ export default function App() {
     const characterName = characterToDelete?.name || 'Sin nombre';
 
     showModal(
-      `¿Estás seguro de que querés eliminar el personaje "${characterName}"? Esta acción no se puede deshacer.`,
+      `¿Estás seguro de que querés eliminar el protagoinista "${characterName}"? Esta acción no se puede deshacer.`,
       {
         title: 'Confirmar eliminación',
         type: 'confirm',
@@ -226,7 +226,7 @@ export default function App() {
 
   function onDownloadJSON() {
     download(
-      `${state.name || 'personaje'}.json`,
+      `${state.name || 'protagonista'}.json`,
       JSON.stringify(state, null, 2)
     );
   }
@@ -332,11 +332,11 @@ export default function App() {
             <div className="max-w-4xl mx-auto space-y-6">
               <div className="bg-forest-700 rounded-xl p-4 border-2 border-forest-600">
                 <h2 className="text-2xl font-bold text-parchment-100 mb-2 font-serif">
-                  Vista previa del personaje
+                  Vista previa del protagonista
                 </h2>
                 <p className="text-parchment-200 mb-4">
-                  Alguien compartió contigo este personaje. Podés guardarlo en
-                  tu colección o simplemente verlo.
+                  Alguien compartió contigo este protagonista. Podés guardarlo
+                  en tu colección o simplemente verlo.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Button

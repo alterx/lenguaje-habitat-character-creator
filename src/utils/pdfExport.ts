@@ -38,7 +38,7 @@ export async function exportWithJsPDF(state: Character): Promise<{ success: bool
       undefined,
       'FAST'
     );
-    pdf.save(`${state.name || 'personaje'}.pdf`);
+    pdf.save(`${state.name || 'protagonista'}.pdf`);
     
     return { success: true };
   } catch (error) {

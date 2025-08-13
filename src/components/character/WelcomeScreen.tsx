@@ -28,13 +28,15 @@ export function WelcomeScreen({
           ¡Bienvenido!
         </h2>
         <p className="text-forest-700 mb-6">
-          Comenzá creando un nuevo personaje
+          Comenzá creando un nuevo protagonista
         </p>
         <Button
           variant="primary"
           size="large"
           onPress={onCreateCharacter}
-          label={isFirstCharacter ? '¡Crear mi primer personaje!' : '¡Vamos!'}
+          label={
+            isFirstCharacter ? '¡Crear mi primer protagonista!' : '¡Vamos!'
+          }
         />
         <hr className="my-6 border-forest-600" />
         <p className="text-forest-700 mb-3 mt-6 font-light text-xs">
@@ -64,7 +66,7 @@ export function WelcomeScreen({
                 value: c.id,
                 label: c.name || 'Sin nombre',
               }))}
-              placeholder="Seleccionar personaje..."
+              placeholder="Seleccionar protagonista..."
             />
             {selectedId && (
               <Button

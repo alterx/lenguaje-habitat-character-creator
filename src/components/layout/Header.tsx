@@ -78,7 +78,7 @@ export function Header({
                       value: c.id,
                       label: c.name || 'Sin nombre',
                     }))}
-                    placeholder="Seleccionar personaje..."
+                    placeholder="Seleccionar protagonista..."
                     className="text-xs sm:text-sm"
                   />
                 </>

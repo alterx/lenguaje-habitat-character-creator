@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
 export function useDiceLog() {
-  const [log, setLog] = useState<string[]>([]);
+  const [log, setLog] = useState<{time: number; text: string;}[]>([]);
   
   return {
     log,
     add(entry: string) {
-      setLog((prev) => [entry, ...prev].slice(0, 20));
+      setLog((prev) => [{time: Date.now(), text: entry}, ...prev].slice(0, 20));
     },
     clear() {
       setLog([]);

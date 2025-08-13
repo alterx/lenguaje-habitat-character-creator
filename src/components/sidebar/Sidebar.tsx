@@ -6,7 +6,7 @@ import type { Character, CharacterAction } from '../../types/Character';
 interface SidebarProps {
   character: Character;
   dispatch: React.Dispatch<CharacterAction>;
-  diceLog: string[];
+  diceLog: { time: number; text: string }[];
   lastRoll: string | null;
   onRoll: (result: string) => void;
   onClearLog: () => void;

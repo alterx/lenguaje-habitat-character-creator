@@ -19,7 +19,7 @@ interface DiceRollerProps {
   onRoll: (result: string) => void;
   onToast: (message: string) => void;
   onClearLog: () => void;
-  diceLog: string[];
+  diceLog: { time: number; text: string }[];
   onShowModal: (
     message: string,
     options?: {
@@ -53,7 +53,7 @@ export function DiceRoller({
   function handleTest(
     attribute: AttributeName,
     opts: {
-      difficulty: number;
+      difficulty: number | null;
       boost?: boolean;
       reroll: boolean;
       spend?: PackageName | null;
@@ -63,7 +63,11 @@ export function DiceRoller({
     const mod = character.attributes[attribute] ?? 0;
     const boost = opts.boost ? 2 : 0;
     const total = d + mod + boost;
-    const outcome = total >= opts.difficulty ? 'ÉXITO' : 'FALLO';
+    const outcome = opts?.difficulty
+      ? total >= opts.difficulty
+        ? 'ÉXITO'
+        : 'FALLO'
+      : '';
 
     if (opts.spend) {
       const current = character.current[opts.spend] ?? 0;
@@ -74,11 +78,17 @@ export function DiceRoller({
       });
     }
 
-    const line = `d20(${d}) ${mod >= 0 ? '+' : '-'} ${Math.abs(mod)}${
+    let line = `d20(${d}) ${mod >= 0 ? '+' : '-'} ${Math.abs(mod)}${
       boost ? ' + 2' : ''
-    } = ${total} vs ${opts.difficulty} → ${outcome}`;
+    } = ${total}`;
+
+    if (opts?.difficulty) {
+      line += ` vs ${opts.difficulty} → ${outcome}`;
+    }
     onRoll(line);
-    onToast(`${outcome}: ${total} vs ${opts.difficulty}`);
+    onToast(
+      `${outcome}: ${total} vs ${opts?.difficulty ? opts.difficulty : ''}`
+    );
     setUseBoost(false);
     setUseReRoll(false);
   }
@@ -145,7 +155,7 @@ export function DiceRoller({
         <Button
           variant="primary"
           onPress={() => {
-            if (selectedDifficulty === null) {
+            if (selectedDifficulty === null && mode === 'gm') {
               onShowModal('Seleccioná una dificultad.', {
                 title: 'Dificultad requerida',
                 type: 'warning',

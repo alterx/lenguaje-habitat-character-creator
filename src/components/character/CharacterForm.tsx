@@ -47,6 +47,7 @@ export function CharacterForm({
           currentStep={currentStep}
           totalSteps={totalSteps}
           onStepClick={onStepChange}
+          character={character}
         />
       )}
 

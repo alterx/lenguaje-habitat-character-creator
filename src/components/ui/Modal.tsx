@@ -25,7 +25,6 @@ export function Modal({
     switch (type) {
       case 'error':
         return {
-          icon: '❌',
           bgColor: 'bg-red-900/90',
           borderColor: 'border-red-600',
           titleColor: 'text-red-200',
@@ -33,7 +32,6 @@ export function Modal({
         };
       case 'warning':
         return {
-          icon: '⚠️',
           bgColor: 'bg-parchment-800/90',
           borderColor: 'border-parchment-600',
           titleColor: 'text-parchment-200',
@@ -41,7 +39,6 @@ export function Modal({
         };
       case 'confirm':
         return {
-          icon: '❓',
           bgColor: 'bg-forest-800/90',
           borderColor: 'border-forest-600',
           titleColor: 'text-parchment-200',
@@ -49,7 +46,6 @@ export function Modal({
         };
       default:
         return {
-          icon: 'ℹ️',
           bgColor: 'bg-forest-800/90',
           borderColor: 'border-forest-600',
           titleColor: 'text-parchment-200',
@@ -72,8 +68,6 @@ export function Modal({
         className={`relative w-full max-w-md mx-4 p-6 rounded-xl shadow-2xl border-2 backdrop-blur-sm ${styles.bgColor} ${styles.borderColor}`}
       >
         <div className="flex items-start gap-4">
-          <div className={`text-2xl ${styles.iconColor}`}>{styles.icon}</div>
-
           <div className="flex-1">
             {title && (
               <h3

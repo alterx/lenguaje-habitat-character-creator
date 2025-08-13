@@ -108,7 +108,13 @@ export function DiceRoller({
         <Select
           value={selectedAttribute}
           onChange={(value) => setSelectedAttribute(value as AttributeName)}
-          options={createSelectOptions([...ATTRIBUTE_NAMES])}
+          options={ATTRIBUTE_NAMES.map((attr) => {
+            const value = character.attributes[attr] ?? 0;
+            return {
+              value: attr,
+              label: `${attr} (${value >= 0 ? '+' : ''}${value})`,
+            };
+          })}
           variant="form"
           className={mode === 'player' ? 'col-span-2' : ''}
         />

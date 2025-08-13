@@ -55,25 +55,43 @@ export function CharacterSheet({ character }: CharacterSheetProps) {
                 ATRIBUTOS
               </h3>
             </div>
-            <div className="grid grid-cols-2 gap-1 sm:gap-2 lg:gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-2 gap-1 sm:gap-2 lg:gap-3">
               {ATTRIBUTE_NAMES.map((attr) => {
                 const IconComponent = attributeIcons[attr];
                 return (
                   <div
                     key={attr}
-                    className="bg-white rounded-md sm:rounded-lg border-2 border-forest-600 p-1.5 sm:p-2 lg:p-3"
+                    className="bg-white rounded-md sm:rounded-lg border-2 border-forest-600 p-2 sm:p-2 lg:p-3"
                   >
-                    <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
-                      <div className="w-6 h-6 sm:w-8 sm:h-8 bg-forest-100 rounded-full flex items-center justify-center">
-                        <IconComponent className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-forest-700" />
+                    {/* Mobile: Horizontal flex layout */}
+                    <div className="flex items-center gap-2 sm:hidden">
+                      <div className="w-5 h-5 bg-forest-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <IconComponent className="w-4 h-4 text-forest-700" />
                       </div>
-                      <span className="text-xs font-bold text-forest-800 uppercase leading-tight">
-                        {attr}
-                      </span>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-forest-800 uppercase leading-tight">
+                          {attr}
+                        </div>
+                        <div className="text-lg font-bold text-forest-900">
+                          {formatModifier(character.attributes[attr])}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-center">
-                      <div className="text-lg sm:text-xl lg:text-2xl font-bold text-forest-900">
-                        {formatModifier(character.attributes[attr])}
+
+                    {/* Desktop: Vertical card layout */}
+                    <div className="hidden sm:block text-center">
+                      <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2 justify-center">
+                        <div className="w-6 h-6 sm:w-8 sm:h-8 bg-forest-100 rounded-full flex items-center justify-center">
+                          <IconComponent className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-forest-700" />
+                        </div>
+                        <span className="text-xs font-bold text-forest-800 uppercase leading-tight">
+                          {attr}
+                        </span>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-lg sm:text-xl lg:text-2xl font-bold text-forest-900">
+                          {formatModifier(character.attributes[attr])}
+                        </div>
                       </div>
                     </div>
                   </div>

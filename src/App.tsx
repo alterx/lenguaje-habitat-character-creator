@@ -403,8 +403,21 @@ export default function App() {
             Ver en itch.io
           </a>
         </p>
+        <br />
         Hecho con ♥ por Carlos Vega para jugar aventuras en cualquier{' '}
-        <i>hábitat</i>. — Guardado automático en tu navegador.
+        <i>hábitat</i>, Copyright 2025
+        <br />
+        <p className="underline">
+          <a
+            href="https://github.com/alterx/lenguaje-habitat-character-creator"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Ver en github.com
+          </a>
+        </p>
+        <br />
+        Guardado automático en tu navegador.
       </footer>
     </div>
   );

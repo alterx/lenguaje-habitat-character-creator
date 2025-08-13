@@ -29,8 +29,9 @@ export function QuickRules() {
           <strong>Guía </strong>
           puede aplicar consecuencias apropiadas a la ficción. Esto puede
           incluir daño, pérdida de recursos o complicaciones narrativas. El daño
-          sugerido en puntos es de 1 a 4, donde 1 es leve, 2 es moderado, 3 es
-          grave y 4 es letal/excepcional.
+          sugerido en puntos es de <strong>1 a 4</strong>, donde{' '}
+          <strong>1</strong> es leve, <strong>2</strong> es moderado,{' '}
+          <strong>3</strong> es grave y <strong>4</strong> es letal/excepcional.
         </li>
       </ul>
     </section>

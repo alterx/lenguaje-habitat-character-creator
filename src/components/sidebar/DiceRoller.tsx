@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { DIFFICULTY_OPTIONS } from '../../constants/gameData';
-import { ATTRIBUTE_NAMES, ATTRIBUTE_LABELS, PACKAGE_LABELS } from '../../types/Character';
+import {
+  ATTRIBUTE_NAMES,
+  ATTRIBUTE_LABELS,
+  PACKAGE_LABELS,
+} from '../../types/Character';
 import { rollD20 } from '../../utils/gameUtils';
 import type {
   AttributeName,
@@ -112,7 +116,9 @@ export function DiceRoller({
             const value = character.attributes[attr] ?? 0;
             return {
               value: attr,
-              label: `${ATTRIBUTE_LABELS[attr]} (${value >= 0 ? '+' : ''}${value})`,
+              label: `${ATTRIBUTE_LABELS[attr]} (${
+                value >= 0 ? '+' : ''
+              }${value})`,
             };
           })}
           variant="form"
@@ -156,7 +162,8 @@ export function DiceRoller({
             onChange={(e) => setUseReRoll(!!e.target.checked)}
           />
           <p>
-            -2 puntos de <strong>{PACKAGE_LABELS.spirit}</strong> para repetir tirada
+            -2 puntos de <strong>{PACKAGE_LABELS.spirit}</strong> para repetir
+            tirada
           </p>
         </label>
         <Button
@@ -187,10 +194,13 @@ export function DiceRoller({
 
               // Check if we have enough points to spend
               if (spend && (character.current[spend] ?? 0) <= 0) {
-                onShowModal(`No tenés puntos de ${PACKAGE_LABELS[spend]} para gastar.`, {
-                  title: 'Puntos insuficientes',
-                  type: 'warning',
-                });
+                onShowModal(
+                  `No tenés puntos de ${PACKAGE_LABELS[spend]} para gastar.`,
+                  {
+                    title: 'Puntos insuficientes',
+                    type: 'warning',
+                  }
+                );
                 return;
               }
             }
@@ -199,10 +209,13 @@ export function DiceRoller({
               spend = 'spirit';
               // Check if we have enough points to spend
               if (spend && (character.current[spend] ?? 0) <= 0) {
-                onShowModal(`No tenés puntos de ${PACKAGE_LABELS[spend]} para gastar.`, {
-                  title: 'Puntos insuficientes',
-                  type: 'warning',
-                });
+                onShowModal(
+                  `No tenés puntos de ${PACKAGE_LABELS[spend]} para gastar.`,
+                  {
+                    title: 'Puntos insuficientes',
+                    type: 'warning',
+                  }
+                );
                 return;
               }
             }

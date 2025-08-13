@@ -1,6 +1,6 @@
 import { Section, StepHeader, Divider } from '../../ui/BasicComponents';
 import { StepNavigation } from '../../ui/StepNavigation';
-import { VIRTUE_TYPES } from '../../../types/Character';
+import { VIRTUE_TYPES, VIRTUE_TYPE_LABELS } from '../../../types/Character';
 import { TEXT_LIMITS } from '../../../constants/textLimits';
 import type {
   Character,
@@ -69,7 +69,10 @@ export function Step4Virtues({
                       patch: { type: value as VirtueType },
                     })
                   }
-                  options={createSelectOptions([...VIRTUE_TYPES])}
+                  options={VIRTUE_TYPES.map(type => ({
+                    value: type,
+                    label: VIRTUE_TYPE_LABELS[type]
+                  }))}
                   className="w-full"
                 />
               </div>

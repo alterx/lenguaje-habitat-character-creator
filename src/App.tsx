@@ -75,6 +75,7 @@ export default function App() {
 
   // Character management
   function addCharacter() {
+    setIsPlaying(false);
     setStep(1);
     const newChar = createEmptyCharacter();
     setCharacters((chars) => [...chars, newChar]);

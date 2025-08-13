@@ -3,7 +3,7 @@ import { Section, StepHeader, Divider } from '../../ui/BasicComponents';
 import { StepNavigation } from '../../ui/StepNavigation';
 import { SetSelector, ValueSelect } from '../../ui/FormComponents';
 import { PACKAGE_SETS } from '../../../constants/gameData';
-import { PACKAGE_NAMES } from '../../../types/Character';
+import { PACKAGE_LABELS, PACKAGE_NAMES } from '../../../types/Character';
 import { buildCountMap } from '../../../utils/gameUtils';
 import type { Character, CharacterAction } from '../../../types/Character';
 
@@ -72,7 +72,7 @@ export function Step3Packages({
         {PACKAGE_NAMES.map((pack) => (
           <div key={pack} className="space-y-2">
             <ValueSelect
-              label={pack}
+              label={PACKAGE_LABELS[pack]}
               value={state.packs[pack]}
               options={packageSetValues}
               allowedCounts={allowedPackCounts}

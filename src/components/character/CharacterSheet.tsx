@@ -3,6 +3,7 @@ import {
   PACKAGE_NAMES,
   ATTRIBUTE_LABELS,
   PACKAGE_LABELS,
+  VIRTUE_TYPE_LABELS,
 } from '../../types/Character';
 import { formatModifier } from '../../utils/gameUtils';
 import type { Character } from '../../types/Character';
@@ -214,7 +215,7 @@ export function CharacterSheet({
                         VIRTUD {i + 1}
                       </div>
                       <div className="text-xs text-forest-600 uppercase">
-                        {virtue.type}
+                        {VIRTUE_TYPE_LABELS[virtue.type]}
                       </div>
                     </div>
                   </div>

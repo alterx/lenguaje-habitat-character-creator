@@ -3,7 +3,7 @@ import { Section, StepHeader, Divider } from '../../ui/BasicComponents';
 import { StepNavigation } from '../../ui/StepNavigation';
 import { SetSelector, ValueSelect } from '../../ui/FormComponents';
 import { ATTRIBUTE_SETS } from '../../../constants/gameData';
-import { ATTRIBUTE_NAMES } from '../../../types/Character';
+import { ATTRIBUTE_LABELS, ATTRIBUTE_NAMES } from '../../../types/Character';
 import { formatModifier, buildCountMap } from '../../../utils/gameUtils';
 import type { Character, CharacterAction } from '../../../types/Character';
 
@@ -73,7 +73,7 @@ export function Step2Attributes({
           <div key={attr} className="flex items-end gap-3">
             <div className="flex-1">
               <ValueSelect
-                label={attr}
+                label={ATTRIBUTE_LABELS[attr]}
                 value={state.attributes[attr]}
                 options={attributeSetValues}
                 allowedCounts={allowedAttrCounts}

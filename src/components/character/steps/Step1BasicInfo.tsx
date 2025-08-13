@@ -1,5 +1,6 @@
 import { Section, StepHeader } from '../../ui/BasicComponents';
 import { StepNavigation } from '../../ui/StepNavigation';
+import { TEXT_LIMITS } from '../../../constants/textLimits';
 import type { Character, CharacterAction } from '../../../types/Character';
 
 interface Step1BasicInfoProps {
@@ -19,9 +20,9 @@ export function Step1BasicInfo({
   return (
     <Section
       title="Datos básicos"
-      subtitle="Nombre y notas de tu protagonista."
+      subtitle="Definí el nombre y notas importantes de tu protagonista."
+      step={1}
     >
-      <StepHeader step={1} total={5} title="Identidad" />
       <StepNavigation
         step={1}
         canProceed={true}
@@ -49,14 +50,20 @@ export function Step1BasicInfo({
         </div>
         <div>
           <label className="text-sm font-medium text-green-900">Notas</label>
-          <textarea
-            className="mt-1 min-h-48 w-full px-3 py-2 border border-parchment-600 rounded-xl bg-amber-50 focus:outline-none focus:ring-2 focus:ring-green-600 text-green-900"
-            placeholder="Concepto, origen, motivación…"
-            value={state.notes}
-            onChange={(e) =>
-              dispatch({ type: 'setNotes', value: e.target.value })
-            }
-          />
+          <div className="relative">
+            <textarea
+              className="mt-1 min-h-48 w-full px-3 py-2 border border-parchment-600 rounded-xl bg-amber-50 focus:outline-none focus:ring-2 focus:ring-green-600 text-green-900"
+              placeholder="Concepto, origen, motivación…"
+              maxLength={TEXT_LIMITS.CHARACTER_NOTES}
+              value={state.notes}
+              onChange={(e) =>
+                dispatch({ type: 'setNotes', value: e.target.value })
+              }
+            />
+            <div className="absolute bottom-2 right-2 text-xs text-forest-600">
+              {state.notes.length}/{TEXT_LIMITS.CHARACTER_NOTES}
+            </div>
+          </div>
         </div>
       </div>
     </Section>

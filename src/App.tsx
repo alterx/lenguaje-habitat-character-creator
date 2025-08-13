@@ -349,8 +349,8 @@ export default function App() {
       />
 
       <footer className="max-w-5xl mx-auto px-4 pb-10 text-center text-sm text-mist-400">
-        Basado en <b>Lenguaje Hábitat</b>, por Javier Morales Vargas, Copyright
-        2025
+        Basado en <strong>Lenguaje Hábitat</strong>, por Javier Morales Vargas,
+        Copyright 2025
         <br />
         <p className="underline">
           <a

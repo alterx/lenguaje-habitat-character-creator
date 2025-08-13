@@ -1,3 +1,4 @@
+import { StepHeader } from './BasicComponents';
 import { Button } from './Button';
 
 interface StepNavigationProps {

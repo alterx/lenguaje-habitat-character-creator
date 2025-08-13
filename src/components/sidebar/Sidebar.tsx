@@ -2,11 +2,12 @@ import { DiceRoller } from './DiceRoller';
 import { AdventurePoints } from './AdventurePoints';
 import { QuickRules } from './QuickRules';
 import type { Character, CharacterAction } from '../../types/Character';
+import { Log } from '../../types/Game';
 
 interface SidebarProps {
   character: Character;
   dispatch: React.Dispatch<CharacterAction>;
-  diceLog: { time: number; text: string }[];
+  diceLog: Log[];
   lastRoll: string | null;
   onRoll: (result: string) => void;
   onClearLog: () => void;

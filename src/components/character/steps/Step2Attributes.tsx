@@ -39,9 +39,9 @@ export function Step2Attributes({
   return (
     <Section
       title="Atributos"
-      subtitle="Elegí un conjunto y distribuí sus modificadores entre Vigor, Agilidad, Ingenio e Intuición."
+      subtitle="Elegí un conjunto y distribuí sus valores entre Vigor, Agilidad, Ingenio e Intuición."
+      step={2}
     >
-      <StepHeader step={2} total={5} title="Distribución de Atributos" />
       <StepNavigation
         step={2}
         canProceed={attrsValid}

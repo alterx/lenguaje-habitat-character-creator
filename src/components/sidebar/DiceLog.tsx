@@ -1,5 +1,7 @@
+import { Log } from '../../types/Game';
+
 interface DiceLogProps {
-  log: { time: number; text: string }[];
+  log: Log[];
   onClear: () => void;
 }
 
@@ -20,7 +22,11 @@ export function DiceLog({ log, onClear }: DiceLogProps) {
           >
             {l.text}
             <p className="text-xs text-parchment-900">
-              {new Date(l.time).toLocaleTimeString()}
+              {Intl.DateTimeFormat('es-CR', {
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric',
+              }).format(l.time)}
             </p>
           </li>
         ))}

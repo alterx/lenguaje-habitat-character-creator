@@ -1,0 +1,1 @@
+export interface Log { time: number; text: string };

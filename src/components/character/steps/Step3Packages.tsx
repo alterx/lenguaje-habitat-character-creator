@@ -39,9 +39,9 @@ export function Step3Packages({
   return (
     <Section
       title="Paquete de Aventura"
-      subtitle="Distribuí los valores entre Aguante, Espíritu y Recursos."
+      subtitle="Elegí un conjunto y distribuí los valores entre Aguante, Espíritu y Recursos."
+      step={3}
     >
-      <StepHeader step={3} total={5} title="Resistencias y Recursos" />
       <StepNavigation
         step={3}
         canProceed={packValid}
@@ -80,15 +80,16 @@ export function Step3Packages({
             {pack === 'Aguante' && (
               <p className="text-xs text-forest-700 text-center">
                 Se reduce por daño, cansancio o esfuerzo. Si llega a 0, quedás
-                inconsciente. Gastá 1 para +2 en <b>Vigor</b> o <b>Agilidad</b>.
+                inconsciente. Gastá 1 para +2 en <strong>Vigor</strong> o{' '}
+                <strong>Agilidad</strong>.
               </p>
             )}
             {pack === 'Espíritu' && (
               <p className="text-xs text-forest-700 text-center">
                 Se reduce por consecuencias emocionales, mentales y mágicas. Si
                 llega a 0, todos los obstáculos son más difíciles. Gastá 1 para
-                +2 en <b>Ingenio</b> o <b>Intuición</b>; o 2 para <b>repetir</b>{' '}
-                un dado.
+                +2 en <strong>Ingenio</strong> o <strong>Intuición</strong>; o 2
+                para <strong>repetir</strong> un dado.
               </p>
             )}
             {pack === 'Recursos' && (

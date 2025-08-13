@@ -1,107 +1,192 @@
 import { ATTRIBUTE_NAMES, PACKAGE_NAMES } from '../../types/Character';
 import { formatModifier } from '../../utils/gameUtils';
 import type { Character } from '../../types/Character';
+import {
+  UserIcon,
+  BoltIcon,
+  FireIcon,
+  EyeIcon,
+  LightBulbIcon,
+  HeartIcon,
+  SparklesIcon,
+  ArchiveBoxIcon,
+  StarIcon,
+} from '@heroicons/react/24/outline';
 
 interface CharacterSheetProps {
   character: Character;
 }
 
 export function CharacterSheet({ character }: CharacterSheetProps) {
+  const attributeIcons = {
+    Vigor: FireIcon,
+    Agilidad: BoltIcon,
+    Ingenio: EyeIcon,
+    Intuición: LightBulbIcon,
+  };
+
+  const packageIcons = {
+    Aguante: HeartIcon,
+    Espíritu: SparklesIcon,
+    Recursos: ArchiveBoxIcon,
+  };
+
   return (
     <div
       id="sheet"
       className="bg-parchment-100 bg-paper-texture rounded-2xl border-2 border-forest-700 shadow-2xl p-4 sm:p-6 print:shadow-none print:bg-white"
     >
-      <div className="flex items-start justify-between gap-4 sm:gap-6 flex-wrap mb-4 sm:mb-6">
-        <div className="flex-1 min-w-[200px] sm:min-w-[260px]">
-          <div className="bg-parchment-50 rounded-xl border border-forest-700 p-3 sm:p-4 mb-3 sm:mb-4 shadow-lg">
-            <h2 className="text-lg sm:text-2xl font-bold tracking-tight mb-1 text-forest-900 text-center font-serif">
+      {/* Header with character name */}
+      <div className="mb-6">
+        <div className="bg-forest-600 text-parchment-100 px-4 py-2 rounded-t-xl">
+          <h1 className="text-lg font-bold text-center font-serif tracking-wide">
+            LENGUAJE HÁBITAT
+          </h1>
+        </div>
+        <div className="bg-parchment-50 border-2 border-forest-700 rounded-b-xl p-4">
+          <div className="bg-white rounded-lg border border-forest-600 p-3 text-center">
+            <h2 className="text-lg sm:text-xl font-bold text-forest-900 font-serif">
               {character.name || 'NOMBRE DEL PERSONAJE'}
             </h2>
           </div>
-          <div className="bg-parchment-50 rounded-xl border border-forest-700 p-2 sm:p-3 shadow-lg">
-            <p className="text-xs sm:text-sm text-forest-700 font-medium">
-              {character.notes || '—'}
-            </p>
-          </div>
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
-        <div className="bg-parchment-50 rounded-xl border border-forest-700 p-3 sm:p-4 shadow-lg">
-          <h3 className="font-bold mb-2 sm:mb-3 text-forest-900 text-center border-b border-forest-700 pb-2 font-serif text-sm sm:text-base">
-            ATRIBUTOS
-          </h3>
-          <div className="grid grid-cols-2 gap-1 sm:gap-2">
-            {ATTRIBUTE_NAMES.map((a) => (
-              <div
-                key={a}
-                className="bg-parchment-200 rounded-lg border border-forest-600 p-1.5 sm:p-2 text-center shadow-sm"
-              >
-                <div>
-                  <p className="text-xs font-bold text-forest-800">
-                    {a.toUpperCase()}{' '}
-                  </p>
-                  <p className="text-base sm:text-lg font-bold text-forest-900">
-                    {formatModifier(character.attributes[a])}
-                  </p>
-                </div>
+      {/* Main content grid */}
+      <div className="grid lg:grid-cols-[2fr_1fr] gap-6">
+        {/* Left column - Attributes and Packages */}
+        <div className="space-y-6">
+          {/* Notes */}
+          {character?.notes && (
+            <div className="bg-parchment-50 rounded-xl border-2 border-forest-700 p-4">
+              <div className="text-xs text-forest-900">
+                {character.notes || 'Escribe tus notas aquí...'}
               </div>
-            ))}
+            </div>
+          )}
+          {/* Attributes */}
+          <div className="bg-parchment-50 rounded-xl border-2 border-forest-700 p-4">
+            <div className="bg-forest-600 text-parchment-100 px-3 py-1 rounded-lg mb-4 text-center">
+              <h3 className="font-bold text-sm font-serif">ATRIBUTOS</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              {ATTRIBUTE_NAMES.map((attr) => {
+                const IconComponent = attributeIcons[attr];
+                return (
+                  <div
+                    key={attr}
+                    className="bg-white rounded-lg border-2 border-forest-600 p-3"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <div className="w-8 h-8 bg-forest-100 rounded-full flex items-center justify-center">
+                        <IconComponent className="w-5 h-5 text-forest-700" />
+                      </div>
+                      <span className="text-xs font-bold text-forest-800 uppercase">
+                        {attr}
+                      </span>
+                    </div>
+                    <div className="text-center">
+                      <span className="text-xs text-forest-600">
+                        MODIFICADOR
+                      </span>
+                      <div className="text-2xl font-bold text-forest-900">
+                        {formatModifier(character.attributes[attr])}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Adventure Package */}
+          <div className="bg-parchment-50 rounded-xl border-2 border-forest-700 p-4">
+            <div className="bg-forest-600 text-parchment-100 px-3 py-1 rounded-lg mb-4 text-center">
+              <h3 className="font-bold text-sm font-serif">
+                PAQUETE DE AVENTURA
+              </h3>
+            </div>
+            <div className="grid grid-cols-3 gap-3">
+              {PACKAGE_NAMES.map((pkg) => {
+                const IconComponent = packageIcons[pkg];
+                const noMax = pkg === 'Recursos';
+                return (
+                  <div
+                    key={pkg}
+                    className="bg-white rounded-lg border-2 border-forest-600 p-3 text-center"
+                  >
+                    <div className="flex justify-center mb-2">
+                      <div className="w-8 h-8 bg-forest-100 rounded-full flex items-center justify-center">
+                        <IconComponent className="w-5 h-5 text-forest-700" />
+                      </div>
+                    </div>
+                    <div className="text-xs font-bold text-forest-800 uppercase mb-1">
+                      {pkg}
+                    </div>
+                    <div className="text-xs text-forest-600 mb-1">ACTUAL</div>
+                    <div className="text-xl font-bold text-forest-900">
+                      {character.current[pkg] ?? 0}
+                    </div>
+                    {!noMax && (
+                      <div className="text-xs text-forest-600 mt-1">
+                        MÁXIMO: {character.packs[pkg] ?? '—'}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
 
-        <div className="bg-parchment-50 rounded-xl border border-forest-700 p-3 sm:p-4 shadow-lg">
-          <h3 className="font-bold mb-2 sm:mb-3 text-forest-900 text-center border-b border-forest-700 pb-2 font-serif text-sm sm:text-base">
-            PAQUETE DE AVENTURA
-          </h3>
-          <div className="grid grid-cols-2 gap-1 sm:gap-2">
-            {PACKAGE_NAMES.map((p) => (
-              <div
-                key={p}
-                className="bg-parchment-200 rounded-lg border border-forest-600 p-1.5 sm:p-2 text-center shadow-sm"
-              >
-                <div className="text-xs font-bold text-forest-800 ">
-                  {p.toUpperCase()}
-                </div>
-                <p className="flex flex-row justify-center">
-                  <span className="text-sm sm:text-base text-forest-900">
-                    {character.current[p] ?? 0}{' '}
-                    <span className="text-sm sm:text-base font-bold text-forest-900">
-                      / {character.packs[p] ?? '—'}
-                    </span>
-                  </span>
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+        {/* Right column - Characteristics */}
+        <div className="space-y-6">
+          {/* Characteristics */}
+          <div className="bg-parchment-50 rounded-xl border-2 border-forest-700 p-4">
+            <div className="bg-forest-600 text-parchment-100 px-3 py-1 rounded-lg mb-4 text-center">
+              <h3 className="font-bold text-sm font-serif">CARACTERÍSTICAS</h3>
+            </div>
 
-      <div className="bg-parchment-50 rounded-xl border border-forest-700 p-3 sm:p-4 mb-4 sm:mb-6 shadow-lg">
-        <h3 className="font-bold mb-2 sm:mb-3 text-forest-900 text-center border-b border-forest-700 pb-2 font-serif text-sm sm:text-base">
-          CARACTERÍSTICAS
-        </h3>
-        <div className="space-y-2 sm:space-y-3">
-          {character.virtues.map((v, i) => (
-            <div
-              key={v.id}
-              className="bg-parchment-200 rounded-lg border border-forest-600 p-2 sm:p-3 shadow-sm"
-            >
-              <div className="text-xs font-bold text-forest-700 mb-1">
-                VIRTUD {i + 1} — {v.type.toUpperCase()}
+            <div className="space-y-3">
+              {character.virtues.map((virtue, i) => (
+                <div
+                  key={virtue.id}
+                  className="bg-white rounded-lg border-2 border-forest-600 p-3"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <div className="w-8 h-8 bg-forest-100 rounded-full flex items-center justify-center">
+                      <StarIcon className="w-5 h-5 text-forest-700" />
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-forest-700">
+                        VIRTUD {i + 1}
+                      </div>
+                      <div className="text-xs text-forest-600 uppercase">
+                        {virtue.type}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-xs text-forest-900 bg-gray-50 rounded p-2 min-h-[60px]">
+                    {virtue.text || 'Describe la virtud aquí...'}
+                  </div>
+                </div>
+              ))}
+
+              {/* Complication */}
+              <div className="bg-white rounded-lg border-2 border-red-400 p-3">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-8 h-8 bg-red-100 rounded-full flex items-center justify-center">
+                    <UserIcon className="w-5 h-5 text-red-700" />
+                  </div>
+                  <div className="text-xs font-bold text-red-700">
+                    COMPLICACIÓN
+                  </div>
+                </div>
+                <div className="text-xs text-forest-900 bg-red-50 rounded p-2 min-h-[60px]">
+                  {character.complication.text ||
+                    'Describe la complicación aquí...'}
+                </div>
               </div>
-              <div className="text-xs sm:text-sm text-forest-900">
-                {v.text || '—'}
-              </div>
-            </div>
-          ))}
-          <div className="bg-parchment-200 rounded-lg border border-forest-600 p-2 sm:p-3 shadow-sm">
-            <div className="text-xs font-bold text-forest-700 mb-1">
-              COMPLICACIÓN
-            </div>
-            <div className="text-xs sm:text-sm text-forest-900">
-              {character.complication.text || '—'}
             </div>
           </div>
         </div>

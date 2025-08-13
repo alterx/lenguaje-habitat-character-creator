@@ -56,18 +56,22 @@ export function Step5Preview({
   return (
     <Section
       title={isPlaying ? '' : state?.name}
-      subtitle={isPlaying ? '' : 'Exportá tu personaje.'}
+      subtitle={
+        isPlaying
+          ? ''
+          : 'Tu protagonista está listo para embarcarse en una aventura.'
+      }
+      step={5}
     >
       {!isPlaying && (
         <>
-          <StepHeader step={5} total={5} title="" />
           <StepNavigation
             step={5}
             canProceed={allValid}
             onBack={onBack}
             onNext={startPlaying}
-            onNextLabel="Listo"
-            statusMessage=""
+            onNextLabel="Jugar"
+            statusMessage="✔ Creación Completa."
             isValid={allValid}
           />
         </>

@@ -11,6 +11,7 @@ import type {
 import { DiceLog } from './DiceLog';
 import { Select, createSelectOptions } from '../ui/Select';
 import { Button } from '../ui/Button';
+import { Log } from '../../types/Game';
 
 interface DiceRollerProps {
   character: Character;
@@ -19,7 +20,7 @@ interface DiceRollerProps {
   onRoll: (result: string) => void;
   onToast: (message: string) => void;
   onClearLog: () => void;
-  diceLog: { time: number; text: string }[];
+  diceLog: Log[];
   onShowModal: (
     message: string,
     options?: {
@@ -136,9 +137,9 @@ export function DiceRoller({
             +2 en la tirada al gastar 1 punto de{' '}
             {selectedAttribute === 'Vigor' ||
             selectedAttribute === 'Agilidad' ? (
-              <b>Aguante</b>
+              <strong>Aguante</strong>
             ) : (
-              <b>Espíritu</b>
+              <strong>Espíritu</strong>
             )}
           </p>
         </label>
@@ -149,7 +150,7 @@ export function DiceRoller({
             onChange={(e) => setUseReRoll(!!e.target.checked)}
           />
           <p>
-            -2 puntos de <b>Espíritu</b> para repetir tirada
+            -2 puntos de <strong>Espíritu</strong> para repetir tirada
           </p>
         </label>
         <Button

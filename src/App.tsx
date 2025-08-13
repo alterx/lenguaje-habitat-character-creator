@@ -2,9 +2,11 @@ import React, { useEffect, useMemo, useReducer, useState } from 'react';
 import { Header } from './components/layout/Header';
 import { WelcomeScreen } from './components/character/WelcomeScreen';
 import { CharacterForm } from './components/character/CharacterForm';
+import { CharacterSheet } from './components/character/CharacterSheet';
 import { Sidebar } from './components/sidebar/Sidebar';
 import { Modal } from './components/ui/Modal';
 import { Toast } from './components/ui/Toast';
+import { Button } from './components/ui/Button';
 import { characterReducer } from './reducers/characterReducer';
 import { useAutoSave } from './hooks/useAutoSave';
 import { useDiceLog } from './hooks/useDiceLog';
@@ -21,7 +23,6 @@ import {
   ChevronUpIcon,
   PencilSquareIcon,
 } from '@heroicons/react/24/solid';
-import { Button } from './components/ui/Button';
 
 export default function App() {
   // Multi-character state
@@ -144,6 +145,12 @@ export default function App() {
   // Mobile form collapse state
   const [isFormCollapsed, setIsFormCollapsed] = useState(false);
 
+  // Preview mode state
+  const [isPreviewMode, setIsPreviewMode] = useState(false);
+  const [previewCharacter, setPreviewCharacter] = useState<Character | null>(
+    null
+  );
+
   // Dice and toast management
   const dice = useDiceLog();
   const [lastRoll, setLastRoll] = useState<string | null>(null);
@@ -168,14 +175,10 @@ export default function App() {
     if (hash) {
       const loaded = decodeShare(hash);
       if (loaded) {
-        // Just load the character data for preview, don't add to characters list
-        dispatch({ type: 'load', value: loaded });
-        // Clear the hash from URL
-        window.history.replaceState(
-          {},
-          document.title,
-          window.location.pathname + window.location.search
-        );
+        // Enter preview mode with the loaded character
+        setIsPreviewMode(true);
+        setPreviewCharacter(loaded);
+        // Don't clear the hash yet - let user decide what to do
       }
     }
   }, []);
@@ -188,6 +191,36 @@ export default function App() {
       title: 'Enlace compartido',
       type: 'info',
     });
+  }
+
+  // Preview mode functions
+  function savePreviewCharacter() {
+    if (previewCharacter) {
+      // Create a new character with a unique ID
+      const newCharWithId = { ...previewCharacter, id: crypto.randomUUID() };
+      setCharacters((chars) => [...chars, newCharWithId]);
+      setSelectedId(newCharWithId.id);
+      setIsPreviewMode(false);
+      setPreviewCharacter(null);
+      // Clear the hash from URL
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname + window.location.search
+      );
+      pushToast('Personaje guardado en tu colección');
+    }
+  }
+
+  function discardPreview() {
+    setIsPreviewMode(false);
+    setPreviewCharacter(null);
+    // Clear the hash from URL
+    window.history.replaceState(
+      {},
+      document.title,
+      window.location.pathname + window.location.search
+    );
   }
 
   function onDownloadJSON() {
@@ -285,11 +318,43 @@ export default function App() {
 
       <main
         className={`max-w-5xl mx-auto px-4 py-6 ${
-          selectedChar ? 'grid md:grid-cols-[1fr_320px] gap-6' : ''
+          isPreviewMode
+            ? 'flex justify-center'
+            : selectedChar
+            ? 'grid md:grid-cols-[1fr_320px] gap-6'
+            : ''
         }`}
       >
         <div>
-          {!selectedChar ? (
+          {isPreviewMode && previewCharacter ? (
+            // Preview mode UI
+            <div className="max-w-4xl mx-auto space-y-6">
+              <div className="bg-forest-700 rounded-xl p-4 border-2 border-forest-600">
+                <h2 className="text-2xl font-bold text-parchment-100 mb-2">
+                  Vista previa del personaje
+                </h2>
+                <p className="text-parchment-200 mb-4">
+                  Alguien compartió contigo este personaje. Podés guardarlo en
+                  tu colección o simplemente verlo.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Button
+                    variant="primary"
+                    onPress={savePreviewCharacter}
+                    label="Guardar en mi colección"
+                  />
+                  <Button
+                    variant="destructive"
+                    onPress={discardPreview}
+                    label="Cerrar"
+                  />
+                </div>
+              </div>
+
+              {/* Show character sheet in preview */}
+              <CharacterSheet character={previewCharacter} isPreview={true} />
+            </div>
+          ) : !selectedChar ? (
             <WelcomeScreen
               onCreateCharacter={addCharacter}
               onSelectCharacter={selectCharacter}
@@ -364,8 +429,8 @@ export default function App() {
           )}
         </div>
 
-        {/* Helper Panel - Only show when user has interacted */}
-        {selectedChar && (
+        {/* Helper Panel - Only show when user has interacted and not in preview mode */}
+        {selectedChar && !isPreviewMode && (
           <Sidebar
             character={state}
             dispatch={dispatch}

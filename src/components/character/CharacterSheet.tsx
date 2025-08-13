@@ -15,9 +15,13 @@ import {
 
 interface CharacterSheetProps {
   character: Character;
+  isPreview?: boolean;
 }
 
-export function CharacterSheet({ character }: CharacterSheetProps) {
+export function CharacterSheet({
+  character,
+  isPreview = false,
+}: CharacterSheetProps) {
   const attributeIcons = {
     Vigor: FireIcon,
     Agilidad: BoltIcon,
@@ -36,8 +40,21 @@ export function CharacterSheet({ character }: CharacterSheetProps) {
       id="sheet"
       className="bg-parchment-100 bg-paper-texture rounded-xl sm:rounded-2xl border-2 border-forest-700 shadow-2xl p-2 sm:p-4 md:p-6 print:shadow-none print:bg-white"
     >
+      {/* Character name - only show in preview mode */}
+      {isPreview && character.name && (
+        <div className="text-center mb-4 sm:mb-6">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-forest-900 font-serif">
+            {character.name}
+          </h1>
+        </div>
+      )}
+
       {/* Main content grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-2 sm:gap-4 lg:gap-6">
+      <div
+        className={`grid grid-cols-1 ${
+          isPreview ? 'lg:grid-cols-[1fr_1fr]' : 'lg:grid-cols-[2fr_1fr]'
+        } gap-2 sm:gap-4 lg:gap-6`}
+      >
         {/* Left column - Attributes and Packages */}
         <div className="space-y-6">
           {/* Notes */}

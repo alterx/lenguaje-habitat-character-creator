@@ -36,7 +36,7 @@ export function PackageControl({
       />
       <div className="text-sm text-center">
         <div className="font-bold text-forest-800">{name}</div>
-        <div className="text-xs text-forest-700">
+        <div className="text-sm text-forest-700">
           {`${current} ${name !== 'Recursos' ? '/ ' + (max ?? '—') : ''}`}
         </div>
       </div>

@@ -12,6 +12,7 @@ interface Step3PackagesProps {
   dispatch: React.Dispatch<CharacterAction>;
   onBack: () => void;
   onNext: () => void;
+  isPlaying: boolean;
 }
 
 export function Step3Packages({
@@ -19,6 +20,7 @@ export function Step3Packages({
   dispatch,
   onBack,
   onNext,
+  isPlaying,
 }: Step3PackagesProps) {
   const packageSetValues = PACKAGE_SETS[state.packageSet];
   const allowedPackCounts = useMemo(
@@ -41,6 +43,7 @@ export function Step3Packages({
       title="Paquete de Aventura"
       subtitle="Elegí un conjunto y distribuí los valores entre Aguante, Espíritu y Recursos."
       step={3}
+      isPlaying={isPlaying}
     >
       <StepNavigation
         step={3}

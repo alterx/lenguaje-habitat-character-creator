@@ -7,12 +7,14 @@ interface Step1BasicInfoProps {
   state: Character;
   dispatch: React.Dispatch<CharacterAction>;
   onNext: () => void;
+  isPlaying: boolean;
 }
 
 export function Step1BasicInfo({
   state,
   dispatch,
   onNext,
+  isPlaying,
 }: Step1BasicInfoProps) {
   const isValid = state.name.trim().length > 0;
   const attrsValid = !!state.name;
@@ -22,6 +24,7 @@ export function Step1BasicInfo({
       title="Datos básicos"
       subtitle="Definí el nombre y notas importantes de tu protagonista."
       step={1}
+      isPlaying={isPlaying}
     >
       <StepNavigation
         step={1}

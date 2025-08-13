@@ -16,11 +16,13 @@ interface Step4VirtuesProps {
   dispatch: React.Dispatch<CharacterAction>;
   onBack: () => void;
   onNext: () => void;
+  isPlaying: boolean;
 }
 
 export function Step4Virtues({
   state,
   dispatch,
+  isPlaying,
   onBack,
   onNext,
 }: Step4VirtuesProps) {
@@ -34,6 +36,7 @@ export function Step4Virtues({
       title="Características"
       subtitle="Definí tres virtudes y una complicación para tu protagonista."
       step={4}
+      isPlaying={isPlaying}
     >
       <StepNavigation
         step={4}

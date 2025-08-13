@@ -19,7 +19,9 @@ import {
   TrashIcon,
   ChevronDownIcon,
   ChevronUpIcon,
+  PencilSquareIcon,
 } from '@heroicons/react/24/solid';
+import { Button } from './components/ui/Button';
 
 export default function App() {
   // Multi-character state
@@ -103,7 +105,41 @@ export default function App() {
   }
 
   // Step management
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const stepParam = urlParams.get('step');
+    return stepParam ? parseInt(stepParam, 10) || 1 : 1;
+  });
+
+  // Playing state management
+  const [isPlaying, setIsPlaying] = useState(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('playing') === 'true';
+  });
+
+  // Update URL when step or playing state changes
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const params = new URLSearchParams(url.search);
+
+    if (step !== 1) {
+      params.set('step', step.toString());
+    } else {
+      params.delete('step');
+    }
+
+    if (isPlaying) {
+      params.set('playing', 'true');
+      params.set('step', '5');
+    } else {
+      params.delete('playing');
+    }
+
+    const newUrl = `${url.pathname}${
+      params.toString() ? '?' + params.toString() : ''
+    }${url.hash}`;
+    window.history.replaceState({}, '', newUrl);
+  }, [step, isPlaying]);
 
   // Mobile form collapse state
   const [isFormCollapsed, setIsFormCollapsed] = useState(false);
@@ -274,11 +310,6 @@ export default function App() {
                   <button
                     className="md:hidden p-2 rounded-lg bg-forest-700 hover:bg-forest-600 transition-colors"
                     onClick={() => setIsFormCollapsed(!isFormCollapsed)}
-                    title={
-                      isFormCollapsed
-                        ? 'Mostrar formulario'
-                        : 'Ocultar formulario'
-                    }
                   >
                     {isFormCollapsed ? (
                       <ChevronDownIcon className="h-5 w-5" />
@@ -287,11 +318,19 @@ export default function App() {
                     )}
                   </button>
 
+                  {isPlaying && (
+                    <button
+                      className="p-2 rounded-lg bg-forest-700 hover:bg-forest-600 transition-colors"
+                      onClick={() => setIsPlaying(false)}
+                    >
+                      <PencilSquareIcon className="h-5 w-5" />
+                    </button>
+                  )}
+
                   {selectedId && (
                     <button
-                      className="justify-center p-2 rounded-lg bg-red-700 hover:bg-red-600 transition-colors"
+                      className="p-2 rounded-lg bg-red-700 hover:bg-red-600 transition-colors"
                       onClick={() => deleteCharacter(selectedId)}
-                      title="Eliminar personaje"
                     >
                       <TrashIcon className="h-5 w-5" />
                     </button>
@@ -315,6 +354,9 @@ export default function App() {
                     onShowModal={showModal}
                     onDownloadJSON={onDownloadJSON}
                     onShareLink={onShareLink}
+                    isPlaying={isPlaying}
+                    onStartPlaying={() => setIsPlaying(true)}
+                    onStopPlaying={() => setIsPlaying(false)}
                   />
                 </div>
               )}

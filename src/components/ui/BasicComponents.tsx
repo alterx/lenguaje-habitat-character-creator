@@ -6,20 +6,28 @@ export function Section({
   title,
   subtitle,
   step,
+  isPlaying = false,
   children,
 }: {
   title: string;
   subtitle?: string;
   step: number;
+  isPlaying?: boolean;
   children: React.ReactNode;
 }) {
   return (
     <section className="bg-parchment-300 bg-paper-texture backdrop-blur-sm rounded-2xl shadow-2xl border border-parchment-600 p-6 mb-6">
-      <StepHeader step={step} total={5} />
-      <h2 className="text-xl font-semibold mb-1 text-forest-800 font-serif">
-        {title}
-      </h2>
-      {subtitle && <p className="text-forest-700 text-sm mb-4">{subtitle}</p>}
+      {!isPlaying && (
+        <>
+          <StepHeader step={step} total={5} />
+          <h2 className="text-xl font-semibold mb-1 text-forest-800 font-serif">
+            {title}
+          </h2>
+          {subtitle && (
+            <p className="text-forest-700 text-sm mb-4">{subtitle}</p>
+          )}
+        </>
+      )}
       {children}
     </section>
   );

@@ -34,62 +34,45 @@ export function CharacterSheet({ character }: CharacterSheetProps) {
   return (
     <div
       id="sheet"
-      className="bg-parchment-100 bg-paper-texture rounded-2xl border-2 border-forest-700 shadow-2xl p-4 sm:p-6 print:shadow-none print:bg-white"
+      className="bg-parchment-100 bg-paper-texture rounded-xl sm:rounded-2xl border-2 border-forest-700 shadow-2xl p-2 sm:p-4 md:p-6 print:shadow-none print:bg-white"
     >
-      {/* Header with character name */}
-      <div className="mb-6">
-        <div className="bg-forest-600 text-parchment-100 px-4 py-2 rounded-t-xl">
-          <h1 className="text-lg font-bold text-center font-serif tracking-wide">
-            LENGUAJE HÁBITAT
-          </h1>
-        </div>
-        <div className="bg-parchment-50 border-2 border-forest-700 rounded-b-xl p-4">
-          <div className="bg-white rounded-lg border border-forest-600 p-3 text-center">
-            <h2 className="text-lg sm:text-xl font-bold text-forest-900 font-serif">
-              {character.name || 'NOMBRE DEL PERSONAJE'}
-            </h2>
-          </div>
-        </div>
-      </div>
-
       {/* Main content grid */}
-      <div className="grid lg:grid-cols-[2fr_1fr] gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-2 sm:gap-4 lg:gap-6">
         {/* Left column - Attributes and Packages */}
         <div className="space-y-6">
           {/* Notes */}
           {character?.notes && (
-            <div className="bg-parchment-50 rounded-xl border-2 border-forest-700 p-4">
+            <div className="bg-parchment-50 rounded-lg sm:rounded-xl border-2 border-forest-700 p-2 sm:p-4">
               <div className="text-xs text-forest-900">
                 {character.notes || 'Escribe tus notas aquí...'}
               </div>
             </div>
           )}
           {/* Attributes */}
-          <div className="bg-parchment-50 rounded-xl border-2 border-forest-700 p-4">
-            <div className="bg-forest-600 text-parchment-100 px-3 py-1 rounded-lg mb-4 text-center">
-              <h3 className="font-bold text-sm font-serif">ATRIBUTOS</h3>
+          <div className="bg-parchment-50 rounded-lg sm:rounded-xl border-2 border-forest-700 p-2 sm:p-4">
+            <div className="bg-forest-600 text-parchment-100 px-2 sm:px-3 py-1 rounded-lg mb-2 sm:mb-4 text-center">
+              <h3 className="font-bold text-xs sm:text-sm font-serif">
+                ATRIBUTOS
+              </h3>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-1 sm:gap-2 lg:gap-3">
               {ATTRIBUTE_NAMES.map((attr) => {
                 const IconComponent = attributeIcons[attr];
                 return (
                   <div
                     key={attr}
-                    className="bg-white rounded-lg border-2 border-forest-600 p-3"
+                    className="bg-white rounded-md sm:rounded-lg border-2 border-forest-600 p-1.5 sm:p-2 lg:p-3"
                   >
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-8 h-8 bg-forest-100 rounded-full flex items-center justify-center">
-                        <IconComponent className="w-5 h-5 text-forest-700" />
+                    <div className="flex items-center gap-1 sm:gap-2 mb-1 sm:mb-2">
+                      <div className="w-6 h-6 sm:w-8 sm:h-8 bg-forest-100 rounded-full flex items-center justify-center">
+                        <IconComponent className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-forest-700" />
                       </div>
-                      <span className="text-xs font-bold text-forest-800 uppercase">
+                      <span className="text-xs font-bold text-forest-800 uppercase leading-tight">
                         {attr}
                       </span>
                     </div>
                     <div className="text-center">
-                      <span className="text-xs text-forest-600">
-                        MODIFICADOR
-                      </span>
-                      <div className="text-2xl font-bold text-forest-900">
+                      <div className="text-lg sm:text-xl lg:text-2xl font-bold text-forest-900">
                         {formatModifier(character.attributes[attr])}
                       </div>
                     </div>
@@ -100,38 +83,67 @@ export function CharacterSheet({ character }: CharacterSheetProps) {
           </div>
 
           {/* Adventure Package */}
-          <div className="bg-parchment-50 rounded-xl border-2 border-forest-700 p-4">
-            <div className="bg-forest-600 text-parchment-100 px-3 py-1 rounded-lg mb-4 text-center">
-              <h3 className="font-bold text-sm font-serif">
+          <div className="bg-parchment-50 rounded-lg sm:rounded-xl border-2 border-forest-700 p-2 sm:p-4">
+            <div className="bg-forest-600 text-parchment-100 px-2 sm:px-3 py-1 rounded-lg mb-2 sm:mb-4 text-center">
+              <h3 className="font-bold text-xs sm:text-sm font-serif">
                 PAQUETE DE AVENTURA
               </h3>
             </div>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-2 lg:gap-3">
               {PACKAGE_NAMES.map((pkg) => {
                 const IconComponent = packageIcons[pkg];
                 const noMax = pkg === 'Recursos';
                 return (
                   <div
                     key={pkg}
-                    className="bg-white rounded-lg border-2 border-forest-600 p-3 text-center"
+                    className="bg-white rounded-md sm:rounded-lg border-2 border-forest-600 p-2 sm:p-2 lg:p-3"
                   >
-                    <div className="flex justify-center mb-2">
-                      <div className="w-8 h-8 bg-forest-100 rounded-full flex items-center justify-center">
-                        <IconComponent className="w-5 h-5 text-forest-700" />
+                    {/* Mobile: Horizontal flex layout */}
+                    <div className="flex items-center gap-2 sm:hidden">
+                      <div className="w-8 h-8 bg-forest-100 rounded-full flex items-center justify-center flex-shrink-0">
+                        <IconComponent className="w-4 h-4 text-forest-700" />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="text-xs font-bold text-forest-800 uppercase leading-tight">
+                          {pkg}
+                        </div>
+                        <div className="text-xs text-forest-600">
+                          ACTUAL:{' '}
+                          <span className="font-bold text-forest-900">
+                            {character.current[pkg] ?? 0}
+                          </span>
+                          {!noMax && (
+                            <span className="ml-2">
+                              MÁXIMO:{' '}
+                              <span className="font-bold">
+                                {character.packs[pkg] ?? '—'}
+                              </span>
+                            </span>
+                          )}
+                        </div>
                       </div>
                     </div>
-                    <div className="text-xs font-bold text-forest-800 uppercase mb-1">
-                      {pkg}
-                    </div>
-                    <div className="text-xs text-forest-600 mb-1">ACTUAL</div>
-                    <div className="text-xl font-bold text-forest-900">
-                      {character.current[pkg] ?? 0}
-                    </div>
-                    {!noMax && (
-                      <div className="text-xs text-forest-600 mt-1">
-                        MÁXIMO: {character.packs[pkg] ?? '—'}
+
+                    {/* Desktop: Vertical card layout */}
+                    <div className="hidden sm:block text-center">
+                      <div className="flex justify-center mb-1 sm:mb-2">
+                        <div className="w-6 h-6 sm:w-8 sm:h-8 bg-forest-100 rounded-full flex items-center justify-center">
+                          <IconComponent className="w-3 h-3 sm:w-4 sm:h-4 lg:w-5 lg:h-5 text-forest-700" />
+                        </div>
                       </div>
-                    )}
+                      <div className="text-xs font-bold text-forest-800 uppercase mb-1 leading-tight">
+                        {pkg}
+                      </div>
+                      <div className="text-xs text-forest-600 mb-1">ACTUAL</div>
+                      <div className="text-lg sm:text-xl font-bold text-forest-900">
+                        {character.current[pkg] ?? 0}
+                      </div>
+                      {!noMax && (
+                        <div className="text-xs text-forest-600 mt-1">
+                          MÁXIMO: {character.packs[pkg] ?? '—'}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 );
               })}

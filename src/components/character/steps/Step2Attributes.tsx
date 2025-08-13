@@ -12,6 +12,7 @@ interface Step2AttributesProps {
   dispatch: React.Dispatch<CharacterAction>;
   onBack: () => void;
   onNext: () => void;
+  isPlaying: boolean;
 }
 
 export function Step2Attributes({
@@ -19,6 +20,7 @@ export function Step2Attributes({
   dispatch,
   onBack,
   onNext,
+  isPlaying,
 }: Step2AttributesProps) {
   const attributeSetValues = ATTRIBUTE_SETS[state.attributeSet];
   const allowedAttrCounts = useMemo(
@@ -41,6 +43,7 @@ export function Step2Attributes({
       title="Atributos"
       subtitle="Elegí un conjunto y distribuí sus valores entre Vigor, Agilidad, Ingenio e Intuición."
       step={2}
+      isPlaying={isPlaying}
     >
       <StepNavigation
         step={2}

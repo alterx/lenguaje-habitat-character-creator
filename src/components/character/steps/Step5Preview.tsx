@@ -1,6 +1,6 @@
 // Step 5: Character sheet preview and export
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Section, StepHeader } from '../../ui/BasicComponents';
 import { CharacterSheet } from '../CharacterSheet';
 import { exportWithJsPDF } from '../../../utils/pdfExport';
@@ -27,6 +27,9 @@ interface Step5PreviewProps {
   ) => void;
   onShareLink: () => void;
   onDownloadJSON: () => void;
+  isPlaying: boolean;
+  onStartPlaying: () => void;
+  onStopPlaying: () => void;
 }
 
 export function Step5Preview({
@@ -35,8 +38,10 @@ export function Step5Preview({
   onShowModal,
   onShareLink,
   onDownloadJSON,
+  isPlaying,
+  onStartPlaying,
+  onStopPlaying,
 }: Step5PreviewProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
   const allValid =
     state.name.trim().length > 0 &&
     Object.values(state.attributes).every((v) => v !== null) &&
@@ -46,11 +51,7 @@ export function Step5Preview({
     state.complication.text.trim().length > 0;
 
   const startPlaying = () => {
-    setIsPlaying(true);
-  };
-
-  const stopPlaying = () => {
-    setIsPlaying(false);
+    onStartPlaying();
   };
 
   return (
@@ -62,6 +63,7 @@ export function Step5Preview({
           : 'Tu protagonista está listo para embarcarse en una aventura.'
       }
       step={5}
+      isPlaying={isPlaying}
     >
       {!isPlaying && (
         <>
@@ -75,14 +77,6 @@ export function Step5Preview({
             isValid={allValid}
           />
         </>
-      )}
-      {isPlaying && (
-        <div className="flex flex-row justify-end mb-4">
-          <Button
-            onPress={stopPlaying}
-            icon={<PencilSquareIcon className="h-5 w-5" />}
-          />
-        </div>
       )}
       <CharacterSheet character={state} />
 

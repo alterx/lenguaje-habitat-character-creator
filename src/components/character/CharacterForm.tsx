@@ -21,6 +21,9 @@ interface CharacterFormProps {
   ) => void;
   onDownloadJSON: () => void;
   onShareLink: () => void;
+  isPlaying: boolean;
+  onStartPlaying: () => void;
+  onStopPlaying: () => void;
 }
 
 export function CharacterForm({
@@ -31,22 +34,28 @@ export function CharacterForm({
   onShowModal,
   onDownloadJSON,
   onShareLink,
+  isPlaying,
+  onStartPlaying,
+  onStopPlaying,
 }: CharacterFormProps) {
   const totalSteps = 5;
 
   return (
     <>
-      <CharacterStepper
-        currentStep={currentStep}
-        totalSteps={totalSteps}
-        onStepClick={onStepChange}
-      />
+      {!isPlaying && (
+        <CharacterStepper
+          currentStep={currentStep}
+          totalSteps={totalSteps}
+          onStepClick={onStepChange}
+        />
+      )}
 
       {currentStep === 1 && (
         <Step1BasicInfo
           state={character}
           dispatch={dispatch}
           onNext={() => onStepChange(2)}
+          isPlaying={isPlaying}
         />
       )}
 
@@ -56,6 +65,7 @@ export function CharacterForm({
           dispatch={dispatch}
           onBack={() => onStepChange(1)}
           onNext={() => onStepChange(3)}
+          isPlaying={isPlaying}
         />
       )}
 
@@ -65,6 +75,7 @@ export function CharacterForm({
           dispatch={dispatch}
           onBack={() => onStepChange(2)}
           onNext={() => onStepChange(4)}
+          isPlaying={isPlaying}
         />
       )}
 
@@ -74,6 +85,7 @@ export function CharacterForm({
           dispatch={dispatch}
           onBack={() => onStepChange(3)}
           onNext={() => onStepChange(5)}
+          isPlaying={isPlaying}
         />
       )}
 
@@ -84,6 +96,9 @@ export function CharacterForm({
           onShowModal={onShowModal}
           onDownloadJSON={onDownloadJSON}
           onShareLink={onShareLink}
+          isPlaying={isPlaying}
+          onStartPlaying={onStartPlaying}
+          onStopPlaying={onStopPlaying}
         />
       )}
     </>

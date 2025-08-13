@@ -16,7 +16,7 @@ export function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section className="bg-parchment-300 bg-paper-texture backdrop-blur-sm rounded-2xl shadow-2xl border border-parchment-600 p-6 mb-6">
+    <section className="bg-parchment-300 bg-paper-texture backdrop-blur-sm rounded-2xl shadow-2xl border border-parchment-600 p-6">
       {!isPlaying && (
         <>
           <StepHeader step={step} total={5} />

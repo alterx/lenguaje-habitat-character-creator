@@ -321,7 +321,7 @@ export default function App() {
           isPreviewMode
             ? 'flex justify-center'
             : selectedChar
-            ? 'grid md:grid-cols-[1fr_320px] gap-6'
+            ? 'grid md:grid-cols-[1fr_320px] gap-4 md:gap-6'
             : ''
         }`}
       >

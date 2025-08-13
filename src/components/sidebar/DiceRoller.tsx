@@ -28,7 +28,7 @@ interface DiceRollerProps {
       onConfirm?: () => void;
     }
   ) => void;
-  mode: 'player' | 'gm';
+  mode?: 'player' | 'gm';
 }
 
 export function DiceRoller({

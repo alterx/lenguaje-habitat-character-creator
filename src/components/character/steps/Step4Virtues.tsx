@@ -10,6 +10,7 @@ import type {
 import { PlusIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { Button } from '../../ui/Button';
 import { Select, createSelectOptions } from '../../ui/Select';
+import { isStep4Valid } from '../CharacterStepper';
 
 interface Step4VirtuesProps {
   state: Character;
@@ -26,10 +27,7 @@ export function Step4Virtues({
   onBack,
   onNext,
 }: Step4VirtuesProps) {
-  const virtuesValid =
-    state.virtues.length === 3 &&
-    state.virtues.every((v) => v.text.trim().length > 0);
-  const complicationValid = state.complication.text.trim().length > 0;
+  const attrsValid = isStep4Valid(state);
 
   return (
     <Section
@@ -38,18 +36,6 @@ export function Step4Virtues({
       step={4}
       isPlaying={isPlaying}
     >
-      <StepNavigation
-        step={4}
-        canProceed={virtuesValid && complicationValid}
-        onBack={onBack}
-        onNext={onNext}
-        statusMessage={
-          virtuesValid && complicationValid
-            ? '✔ Características listas.'
-            : 'Necesitás 3 virtudes y 1 complicación.'
-        }
-        isValid={virtuesValid && complicationValid}
-      />
       <div className="space-y-4">
         {state.virtues.map((v, idx) => (
           <div
@@ -201,6 +187,18 @@ export function Step4Virtues({
           </ul>
         </div>
       </div>
+
+      <StepNavigation
+        step={4}
+        onBack={onBack}
+        onNext={onNext}
+        statusMessage={
+          attrsValid
+            ? '✔ Características listas.'
+            : 'Necesitás 3 virtudes y 1 complicación.'
+        }
+        isValid={attrsValid}
+      />
     </Section>
   );
 }

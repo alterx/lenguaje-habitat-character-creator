@@ -302,9 +302,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-forest-950 bg-forest-texture text-parchment-50">
-      {/* Print styles */}
-      <style>{`@media print { #app-controls, #helper-panel { display: none !important; } #sheet { box-shadow: none !important; border: none !important; background: white !important; color: black !important; } body { background: white !important; } }`}</style>
-
       <Header
         characters={characters}
         selectedId={selectedId}
@@ -322,14 +319,16 @@ export default function App() {
           isPreviewMode
             ? 'flex justify-center'
             : selectedChar
-            ? 'grid md:grid-cols-[1fr_320px] gap-4 md:gap-6'
+            ? `grid md:grid-cols-${
+                isPlaying ? '[1fr_320px]' : '[1fr]'
+              } gap-4 md:gap-6`
             : ''
         }`}
       >
         <div>
           {isPreviewMode && previewCharacter ? (
             // Preview mode UI
-            <div className="max-w-4xl mx-auto space-y-6">
+            <div className="mx-auto space-y-6">
               <div className="bg-forest-700 rounded-xl p-4 border-2 border-forest-600">
                 <h2 className="text-2xl font-bold text-parchment-100 mb-2 font-serif">
                   Vista previa del protagonista
@@ -433,8 +432,8 @@ export default function App() {
           )}
         </div>
 
-        {/* Helper Panel - Only show when user has interacted and not in preview mode */}
-        {selectedChar && !isPreviewMode && (
+        {/* Helper Panel - Only show when user has interacted, not in preview mode, and not playing */}
+        {selectedChar && !isPreviewMode && isPlaying && (
           <Sidebar
             character={state}
             dispatch={dispatch}

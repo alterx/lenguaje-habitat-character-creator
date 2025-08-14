@@ -3,7 +3,6 @@ import { Button } from './Button';
 
 interface StepNavigationProps {
   step: number;
-  canProceed: boolean;
   onBack?: () => void;
   onBackLabel?: string;
   onNext?: () => void;
@@ -14,7 +13,6 @@ interface StepNavigationProps {
 
 export function StepNavigation({
   step,
-  canProceed,
   onBack,
   onBackLabel = 'Atrás',
   onNext,
@@ -23,7 +21,7 @@ export function StepNavigation({
   isValid,
 }: StepNavigationProps) {
   return (
-    <div className="mb-4 flex flex-col sm:flex-row items-center justify-between gap-3">
+    <div className="mb-4 flex flex-col sm:flex-row items-center justify-between gap-3 mt-4">
       <p className={`text-sm ${isValid ? 'text-green-800' : 'text-amber-800'}`}>
         {statusMessage}
       </p>
@@ -40,7 +38,7 @@ export function StepNavigation({
             variant="primary"
             onPress={onNext}
             label={onNextLabel}
-            disabled={!canProceed}
+            disabled={!isValid}
             className="min-w-[100px] min-h-[44px] flex-1 sm:flex-none"
           />
         )}

@@ -8,19 +8,19 @@ interface CharacterStepperProps {
 }
 
 // Validation functions for each step
-function isStep1Valid(character: Character): boolean {
+export function isStep1Valid(character: Character): boolean {
   return character.name.trim().length > 0;
 }
 
-function isStep2Valid(character: Character): boolean {
+export function isStep2Valid(character: Character): boolean {
   return Object.values(character.attributes).every((v) => v !== null);
 }
 
-function isStep3Valid(character: Character): boolean {
+export function isStep3Valid(character: Character): boolean {
   return Object.values(character.packs).every((v) => v !== null);
 }
 
-function isStep4Valid(character: Character): boolean {
+export function isStep4Valid(character: Character): boolean {
   return (
     character.virtues.length === 3 &&
     character.virtues.every((v) => v.text.trim().length > 0) &&
@@ -28,7 +28,7 @@ function isStep4Valid(character: Character): boolean {
   );
 }
 
-function getMaxAccessibleStep(character: Character): number {
+export function getMaxAccessibleStep(character: Character): number {
   if (!isStep1Valid(character)) return 1;
   if (!isStep2Valid(character)) return 2;
   if (!isStep3Valid(character)) return 3;

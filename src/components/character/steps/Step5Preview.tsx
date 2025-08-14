@@ -42,14 +42,6 @@ export function Step5Preview({
   onStartPlaying,
   onStopPlaying,
 }: Step5PreviewProps) {
-  const allValid =
-    state.name.trim().length > 0 &&
-    Object.values(state.attributes).every((v) => v !== null) &&
-    Object.values(state.packs).every((v) => v !== null) &&
-    state.virtues.length === 3 &&
-    state.virtues.every((v) => v.text.trim().length > 0) &&
-    state.complication.text.trim().length > 0;
-
   const startPlaying = () => {
     onStartPlaying();
   };
@@ -65,19 +57,6 @@ export function Step5Preview({
       step={5}
       isPlaying={isPlaying}
     >
-      {!isPlaying && (
-        <>
-          <StepNavigation
-            step={5}
-            canProceed={allValid}
-            onBack={onBack}
-            onNext={startPlaying}
-            onNextLabel="Jugar"
-            statusMessage="✔ Creación Completa."
-            isValid={allValid}
-          />
-        </>
-      )}
       <CharacterSheet character={state} />
 
       <div className="gap-2 flex justify-end pb-8 pt-4">
@@ -107,6 +86,18 @@ export function Step5Preview({
           icon={<ShareIcon className="h-5 w-5" />}
         />
       </div>
+      {!isPlaying && (
+        <>
+          <StepNavigation
+            step={5}
+            onBack={onBack}
+            onNext={startPlaying}
+            onNextLabel="Jugar"
+            statusMessage="✔ Creación Completa."
+            isValid
+          />
+        </>
+      )}
     </Section>
   );
 }

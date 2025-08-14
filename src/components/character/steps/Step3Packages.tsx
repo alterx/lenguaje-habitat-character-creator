@@ -6,6 +6,7 @@ import { PACKAGE_SETS } from '../../../constants/gameData';
 import { PACKAGE_LABELS, PACKAGE_NAMES } from '../../../types/Character';
 import { buildCountMap } from '../../../utils/gameUtils';
 import type { Character, CharacterAction } from '../../../types/Character';
+import { isStep3Valid } from '../CharacterStepper';
 
 interface Step3PackagesProps {
   state: Character;
@@ -34,9 +35,7 @@ export function Step3Packages({
     return buildCountMap(vals);
   }, [state.packs]);
 
-  const packValid =
-    PACKAGE_NAMES.every((p) => state.packs[p] !== null) &&
-    Object.values(state.packs).filter((v) => v !== null).length === 3;
+  const packValid = isStep3Valid(state);
 
   return (
     <Section
@@ -45,19 +44,6 @@ export function Step3Packages({
       step={3}
       isPlaying={isPlaying}
     >
-      <StepNavigation
-        step={3}
-        canProceed={packValid}
-        onBack={onBack}
-        onNext={onNext}
-        statusMessage={
-          packValid
-            ? '✔ Paquete completo.'
-            : 'Distribuí los tres valores respetando duplicados.'
-        }
-        isValid={packValid}
-      />
-
       <SetSelector
         label="Conjunto"
         value={state.packageSet}
@@ -104,6 +90,17 @@ export function Step3Packages({
           </div>
         ))}
       </div>
+      <StepNavigation
+        step={3}
+        onBack={onBack}
+        onNext={onNext}
+        statusMessage={
+          packValid
+            ? '✔ Paquete completo.'
+            : 'Distribuí los tres valores respetando duplicados.'
+        }
+        isValid={packValid}
+      />
     </Section>
   );
 }

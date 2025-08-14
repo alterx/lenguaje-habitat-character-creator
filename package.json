@@ -13,7 +13,8 @@
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "vite-plugin-pwa": "^1.0.2"
   },
   "devDependencies": {
     "@types/jspdf": "^2.0.0",

@@ -8,8 +8,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Lenaguaje Hábitat',
-        short_name: 'Lenaguaje Hábitat',
+        name: 'Lenguaje Hábitat',
+        short_name: 'Lenguaje Hábitat',
         start_url: '.',
         display: 'standalone',
         background_color: '#1a2e22',

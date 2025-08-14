@@ -170,20 +170,26 @@ export function Step4Virtues({
           <p>Podés encontrar distintos tipos:</p>
           <ul className="list-disc pl-5">
             <li className="mb-2">
-              <strong>Artefactos:</strong> Un libro, una vara mágica, una caja
-              de pociones, un objeto poderoso y único en el mundo.
+              <strong>Artefacto:</strong> un libro, una vara mágica, una caja de
+              pociones, un objeto poderoso y único en el mundo.
             </li>
             <li className="mb-2">
-              <strong>Rasgos:</strong> Habilidad sobrenatural como controlar
-              fuego, magia de plantas, hacer ilusiones o hacer algo.
+              <strong>Magia:</strong> habilidad sobrenatural como controlar
+              fuego, magia de plantas, hacer ilusiones o hacer alquimia.
             </li>
             <li className="mb-2">
-              <strong>Talentos:</strong> Conocimiento o capacidad en la cual sos
+              <strong>Rasgo:</strong> una cualidad física, mental o emocional de
+              la cual sos el o la mejor ejemplo en el mundo.
+            </li>
+            <li className="mb-2">
+              <strong>Talento:</strong> conocimiento o capacidad en la cual sos
               prodigio y hasta un poco increíble.
             </li>
             <li className="mb-2">
               <strong>Complicación:</strong> Un aspecto negativo o dramático que
-              hace la aventura más difícil, pero también más interesante.
+              hace la aventura más difícil, pero también más interesante. Es tu
+              oportunidad para sugerir algo que te gustaría enfrentar en la
+              historia y caracterizar mejor a tu personaje‌.
             </li>
           </ul>
         </div>

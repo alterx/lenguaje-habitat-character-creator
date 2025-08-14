@@ -372,9 +372,7 @@ export default function App() {
               {selectedChar && (
                 <div className="gap-4 flex pb-8 items-center">
                   <h1 className="text-4xl text-parchment-100 font-bold font-serif tracking-wide flex-1">
-                    {selectedChar?.name
-                      ? selectedChar.name
-                      : 'Nuevo Protagonista'}
+                    {selectedChar?.name ? selectedChar.name : 'Sin Nombre'}
                   </h1>
 
                   {/* Mobile collapse toggle */}

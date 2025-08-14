@@ -25,7 +25,8 @@ export function Step2Attributes({
 }: Step2AttributesProps) {
   const attributeSetValues = ATTRIBUTE_SETS[state.attributeSet];
   const allowedAttrCounts = useMemo(
-    () => buildCountMap(attributeSetValues),
+    () =>
+      attributeSetValues.length > 0 ? buildCountMap(attributeSetValues) : {},
     [attributeSetValues]
   );
   const assignedAttrCounts = useMemo(() => {
@@ -34,6 +35,17 @@ export function Step2Attributes({
     );
     return buildCountMap(vals);
   }, [state.attributes]);
+
+  // Filter out empty key for display
+  const availableSets = useMemo(() => {
+    const filtered: Record<string, number[]> = {};
+    Object.entries(ATTRIBUTE_SETS).forEach(([key, value]) => {
+      if (key !== '') {
+        filtered[key] = value;
+      }
+    });
+    return filtered;
+  }, []);
 
   const attrsValid = isStep2Valid(state);
 
@@ -47,7 +59,7 @@ export function Step2Attributes({
       <SetSelector
         label="Conjunto"
         value={state.attributeSet}
-        sets={ATTRIBUTE_SETS}
+        sets={availableSets}
         formatValue={(values) => values.map(formatModifier).join('  ')}
         onChange={(key) => dispatch({ type: 'setAttributeSet', value: key })}
       />
@@ -97,6 +109,7 @@ export function Step2Attributes({
           </div>
         ))}
       </div>
+
       <StepNavigation
         step={2}
         onBack={onBack}

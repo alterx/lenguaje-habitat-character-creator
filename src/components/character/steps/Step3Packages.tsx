@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { Section, Divider } from '../../ui/BasicComponents';
 import { StepNavigation } from '../../ui/StepNavigation';
 import { SetSelector } from '../../ui/FormComponents';
@@ -22,6 +23,18 @@ export function Step3Packages({
   isPlaying,
 }: Step3PackagesProps) {
   const packageSetValues = PACKAGE_SETS[state.packageSet];
+
+  // Filter out empty key for display
+  const availableSets = useMemo(() => {
+    const filtered: Record<string, number[]> = {};
+    Object.entries(PACKAGE_SETS).forEach(([key, value]) => {
+      if (key !== '') {
+        filtered[key] = value;
+      }
+    });
+    return filtered;
+  }, []);
+
   const packValid = isStep3Valid(state);
 
   return (
@@ -34,24 +47,25 @@ export function Step3Packages({
       <SetSelector
         label="Conjunto"
         value={state.packageSet}
-        sets={PACKAGE_SETS}
+        sets={availableSets}
         formatValue={(values) => values.join('  ')}
         onChange={(key) => {
+          const newPackageValues = PACKAGE_SETS[key];
           dispatch({ type: 'setPackageSet', value: key });
           dispatch({
             type: 'setPack',
             pack: 'endurance',
-            value: packageSetValues[0],
+            value: newPackageValues[0],
           });
           dispatch({
             type: 'setPack',
             pack: 'spirit',
-            value: packageSetValues[1],
+            value: newPackageValues[1],
           });
           dispatch({
             type: 'setPack',
             pack: 'resources',
-            value: packageSetValues[2],
+            value: newPackageValues[2],
           });
         }}
       />
@@ -67,7 +81,7 @@ export function Step3Packages({
               </h3>
               <div className="text-center">
                 <div className="text-2xl font-bold text-forest-900">
-                  {packageSetValues[index]}
+                  {packageSetValues.length > 0 ? packageSetValues[index] : '—'}
                 </div>
               </div>
             </div>

@@ -28,8 +28,8 @@ export type AttributeName = (typeof ATTRIBUTE_NAMES)[number];
 export type PackageName = (typeof PACKAGE_NAMES)[number];
 export type VirtueType = (typeof VIRTUE_TYPES)[number];
 
-export type AttributeSetKey = 'A' | 'B' | 'C';
-export type PackageSetKey = 'A' | 'B' | 'C';
+export type AttributeSetKey = '' | 'A' | 'B' | 'C';
+export type PackageSetKey = ''| 'A' | 'B' | 'C';
 
 export interface Virtue {
   id: string;

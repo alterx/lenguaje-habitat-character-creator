@@ -29,7 +29,7 @@ export function Step1BasicInfo({
       <div className="grid md:grid-cols-[1fr_2fr] gap-4">
         <div>
           <label className="text-sm font-medium text-green-900">
-            Nombre del personaje
+            Nombre del protagonista
           </label>
           <input
             className="mt-1 w-full px-3 py-2 border border-parchment-600 rounded-xl bg-amber-50 focus:outline-none focus:ring-2 focus:ring-green-600 text-green-900"
@@ -64,7 +64,7 @@ export function Step1BasicInfo({
         statusMessage={
           attrsValid
             ? '✔ Información lista.'
-            : 'Completá la información básica del personaje.'
+            : 'Completá la información básica del protagonista.'
         }
         isValid={attrsValid}
       />

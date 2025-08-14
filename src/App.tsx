@@ -209,7 +209,7 @@ export default function App() {
         document.title,
         window.location.pathname + window.location.search
       );
-      pushToast('Personaje guardado en tu colección');
+      pushToast('Protagonista guardado en tu colección');
     }
   }
 
@@ -368,7 +368,9 @@ export default function App() {
               {selectedChar && (
                 <div className="gap-4 flex pb-8 items-center">
                   <h1 className="text-4xl text-parchment-100 font-bold font-serif tracking-wide flex-1">
-                    {selectedChar?.name ? selectedChar.name : 'Nuevo Personaje'}
+                    {selectedChar?.name
+                      ? selectedChar.name
+                      : 'Nuevo Protagonista'}
                   </h1>
 
                   {/* Mobile collapse toggle */}

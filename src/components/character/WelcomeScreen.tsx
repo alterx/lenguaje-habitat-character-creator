@@ -44,7 +44,7 @@ export function WelcomeScreen({
         </p>
         <label className="px-3 py-1.5 rounded-xl bg-forest-800 hover:bg-forest-700 text-xs cursor-pointer text-parchment-200 border border-forest-600 transition-colors">
           <CloudArrowUpIcon className="h-4 w-4 inline-block mr-1" />
-          Cargar Personaje
+          Cargar Protagonista
           <input
             type="file"
             accept="application/json"

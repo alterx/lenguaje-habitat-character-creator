@@ -160,10 +160,11 @@ export function Step4Virtues({
             </li>
             <li className="mb-2">
               <strong>Permitir lo imposible:</strong> Una característica como
-              "Magia de Fuego" te permite intentar acciones que otros personajes
-              ni siquiera podrían considerar, como crear una barrera de llamas.
-              La tirada será para ver qué tan bien lo hacés, pero el simple
-              hecho de poder intentarlo se debe a tu característica.
+              "Magia de Fuego" te permite intentar acciones que otros
+              protagonistas ni siquiera podrían considerar, como crear una
+              barrera de llamas. La tirada será para ver qué tan bien lo hacés,
+              pero el simple hecho de poder intentarlo se debe a tu
+              característica.
             </li>
           </ul>
           <p>Podés encontrar distintos tipos:</p>

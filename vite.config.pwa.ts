@@ -9,7 +9,7 @@ export default defineConfig({
       registerType: 'autoUpdate',
       manifest: {
         name: 'Lenaguaje Hábitat',
-        short_name: 'LH',
+        short_name: 'Lenaguaje Hábitat',
         start_url: '.',
         display: 'standalone',
         background_color: '#1a2e22',

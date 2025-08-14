@@ -74,22 +74,24 @@ export function Step2Attributes({
             />
             {attr === 'vigor' && (
               <p className="text-xs text-forest-700 text-center">
-                La potencia y resistencia de tu protagoinista.
+                La <strong>potencia y resistencia</strong> de tu protagoinista.
               </p>
             )}
             {attr === 'agility' && (
               <p className="text-xs text-forest-700 text-center">
-                La velocidad y destreza de tu protagonista.
+                La <strong>velocidad y destreza</strong> de tu protagonista.
               </p>
             )}
             {attr === 'wit' && (
               <p className="text-xs text-forest-700 text-center">
-                El intelecto y la estrategia de tu protagonista.
+                La <strong>inteligencia y estrategia</strong> de tu
+                protagonista.
               </p>
             )}
             {attr === 'intuition' && (
               <p className="text-xs text-forest-700 text-center">
-                La observación y el instinto de tu protagonista.
+                La <strong>observación y el instinto</strong> de tu
+                protagonista.
               </p>
             )}
           </div>

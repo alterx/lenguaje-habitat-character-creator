@@ -1,10 +1,8 @@
-import { useMemo } from 'react';
-import { Section, StepHeader, Divider } from '../../ui/BasicComponents';
+import { Section, Divider } from '../../ui/BasicComponents';
 import { StepNavigation } from '../../ui/StepNavigation';
-import { SetSelector, ValueSelect } from '../../ui/FormComponents';
+import { SetSelector } from '../../ui/FormComponents';
 import { PACKAGE_SETS } from '../../../constants/gameData';
 import { PACKAGE_LABELS, PACKAGE_NAMES } from '../../../types/Character';
-import { buildCountMap } from '../../../utils/gameUtils';
 import type { Character, CharacterAction } from '../../../types/Character';
 import { isStep3Valid } from '../CharacterStepper';
 
@@ -24,23 +22,12 @@ export function Step3Packages({
   isPlaying,
 }: Step3PackagesProps) {
   const packageSetValues = PACKAGE_SETS[state.packageSet];
-  const allowedPackCounts = useMemo(
-    () => buildCountMap(packageSetValues),
-    [packageSetValues]
-  );
-  const assignedPackCounts = useMemo(() => {
-    const vals = Object.values(state.packs).filter(
-      (v): v is number => v !== null
-    );
-    return buildCountMap(vals);
-  }, [state.packs]);
-
   const packValid = isStep3Valid(state);
 
   return (
     <Section
       title="Paquete de Aventura"
-      subtitle="Elegí un conjunto y distribuí los valores entre Aguante, Espíritu y Recursos."
+      subtitle="Elegí un conjunto. Los valores se aplicarán automáticamente a Aguante, Espíritu y Recursos en orden."
       step={3}
       isPlaying={isPlaying}
     >
@@ -49,23 +36,41 @@ export function Step3Packages({
         value={state.packageSet}
         sets={PACKAGE_SETS}
         formatValue={(values) => values.join('  ')}
-        onChange={(key) => dispatch({ type: 'setPackageSet', value: key })}
+        onChange={(key) => {
+          dispatch({ type: 'setPackageSet', value: key });
+          dispatch({
+            type: 'setPack',
+            pack: 'endurance',
+            value: packageSetValues[0],
+          });
+          dispatch({
+            type: 'setPack',
+            pack: 'spirit',
+            value: packageSetValues[1],
+          });
+          dispatch({
+            type: 'setPack',
+            pack: 'resources',
+            value: packageSetValues[2],
+          });
+        }}
       />
 
       <Divider />
 
       <div className="grid md:grid-cols-3 gap-4">
-        {PACKAGE_NAMES.map((pack) => (
+        {PACKAGE_NAMES.map((pack, index) => (
           <div key={pack} className="space-y-2">
-            <ValueSelect
-              label={PACKAGE_LABELS[pack]}
-              value={state.packs[pack]}
-              options={packageSetValues}
-              allowedCounts={allowedPackCounts}
-              assignedCounts={assignedPackCounts}
-              formatOption={(v) => String(v)}
-              onChange={(value) => dispatch({ type: 'setPack', pack, value })}
-            />
+            <div className="bg-white rounded-lg border-2 border-forest-600 p-3">
+              <h3 className="text-sm font-bold text-forest-800 uppercase text-center mb-2">
+                {PACKAGE_LABELS[pack]}
+              </h3>
+              <div className="text-center">
+                <div className="text-2xl font-bold text-forest-900">
+                  {packageSetValues[index]}
+                </div>
+              </div>
+            </div>
             {pack === 'endurance' && (
               <p className="text-xs text-forest-700 text-center">
                 Se reduce por daño, cansancio o esfuerzo. Si llega a 0, quedás
@@ -97,7 +102,7 @@ export function Step3Packages({
         statusMessage={
           packValid
             ? '✔ Paquete completo.'
-            : 'Distribuí los tres valores respetando duplicados.'
+            : 'Seleccioná un conjunto de paquetes.'
         }
         isValid={packValid}
       />

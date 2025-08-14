@@ -61,6 +61,10 @@ export default function App() {
   useEffect(() => {
     if (selectedChar) {
       dispatch({ type: 'load', value: selectedChar });
+      if (selectedChar.status === 'ready') {
+        setIsPlaying(true);
+        setStep(5);
+      }
     }
   }, [selectedChar]);
 

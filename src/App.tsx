@@ -319,9 +319,9 @@ export default function App() {
           isPreviewMode
             ? 'flex justify-center'
             : selectedChar
-            ? `grid md:grid-cols-${
-                isPlaying ? '[1fr_320px]' : '[1fr]'
-              } gap-4 md:gap-6`
+            ? isPlaying
+              ? 'grid md:grid-cols-[1fr_320px] gap-4 md:gap-6'
+              : 'grid md:grid-cols-1 gap-4 md:gap-6'
             : ''
         }`}
       >

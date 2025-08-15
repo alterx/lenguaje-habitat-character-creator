@@ -54,6 +54,8 @@ export function DiceRoller({
   );
   const [useBoost, setUseBoost] = useState(false);
   const [useReRoll, setUseReRoll] = useState(false);
+  const [useAdvantage, setUseAdvantage] = useState(false);
+  const [useDisadvantage, setUseDisadvantage] = useState(false);
 
   function handleTest(
     attribute: AttributeName,
@@ -61,10 +63,29 @@ export function DiceRoller({
       difficulty: number | null;
       boost?: boolean;
       reroll: boolean;
+      advantage?: boolean;
+      disadvantage?: boolean;
       spend?: PackageName | null;
     }
   ) {
-    const d = rollD20();
+    let d: number;
+    let diceDetails: string;
+
+    if (opts.advantage) {
+      const d1 = rollD20();
+      const d2 = rollD20();
+      d = Math.max(d1, d2);
+      diceDetails = `d20(${d1}, ${d2}) con ventaja → ${d}`;
+    } else if (opts.disadvantage) {
+      const d1 = rollD20();
+      const d2 = rollD20();
+      d = Math.min(d1, d2);
+      diceDetails = `d20(${d1}, ${d2}) con desventaja → ${d}`;
+    } else {
+      d = rollD20();
+      diceDetails = `d20(${d})`;
+    }
+
     const mod = character.attributes[attribute] ?? 0;
     const boost = opts.boost ? 2 : 0;
     const total = d + mod + boost;
@@ -83,7 +104,7 @@ export function DiceRoller({
       });
     }
 
-    let line = `d20(${d}) ${mod >= 0 ? '+' : '-'} ${Math.abs(mod)}${
+    let line = `${diceDetails} ${mod >= 0 ? '+' : '-'} ${Math.abs(mod)}${
       boost ? ' + 2' : ''
     } = ${total}`;
 
@@ -96,6 +117,8 @@ export function DiceRoller({
     );
     setUseBoost(false);
     setUseReRoll(false);
+    setUseAdvantage(false);
+    setUseDisadvantage(false);
   }
 
   return (
@@ -166,6 +189,36 @@ export function DiceRoller({
             tirada
           </p>
         </label>
+        <label className="flex items-center gap-2 text-sm col-span-1 text-forest-800">
+          <input
+            type="checkbox"
+            checked={useAdvantage || false}
+            onChange={(e) => {
+              setUseAdvantage(!!e.target.checked);
+              if (e.target.checked) {
+                setUseDisadvantage(false);
+              }
+            }}
+          />
+          <p>
+            <strong>Ventaja</strong> (tira 2, toma el mayor)
+          </p>
+        </label>
+        <label className="flex items-center gap-2 text-sm col-span-1 text-forest-800">
+          <input
+            type="checkbox"
+            checked={useDisadvantage || false}
+            onChange={(e) => {
+              setUseDisadvantage(!!e.target.checked);
+              if (e.target.checked) {
+                setUseAdvantage(false);
+              }
+            }}
+          />
+          <p>
+            <strong>Desventaja</strong> (tira 2, toma el menor)
+          </p>
+        </label>
         <Button
           variant="primary"
           onPress={() => {
@@ -223,6 +276,8 @@ export function DiceRoller({
             handleTest(selectedAttribute, {
               difficulty: selectedDifficulty,
               boost: useBoost,
+              advantage: useAdvantage,
+              disadvantage: useDisadvantage,
               spend,
               reroll: useReRoll,
             });

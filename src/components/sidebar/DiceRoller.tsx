@@ -112,9 +112,7 @@ export function DiceRoller({
       line += ` vs ${opts.difficulty} → ${outcome}`;
     }
     onRoll(line);
-    onToast(
-      `${outcome}: ${total} vs ${opts?.difficulty ? opts.difficulty : ''}`
-    );
+    onToast(line);
     setUseBoost(false);
     setUseReRoll(false);
     setUseAdvantage(false);

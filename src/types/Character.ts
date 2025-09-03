@@ -7,7 +7,7 @@ export const VIRTUE_TYPES = ['artifact', 'magic', 'trait', 'talent'] as const;
 export const ATTRIBUTE_LABELS = {
   vigor: 'Vigor',
   agility: 'Agilidad', 
-  wit: 'Ingenio',
+  wit: 'Enfoque',
   intuition: 'Intuición'
 } as const;
 
